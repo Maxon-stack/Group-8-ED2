@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>BIO SHEET</title>
+</head>
+<body>
+  <div class="content">
+    <div class="header">
+      <div id="img_holder">
+        <img src="department_def.png" id = "logo"alt="">
+      </div>
+      <div id = 'title_holder'>
+        <h1>BIO SHEET</h1>
+        <p>XVIII Airborne Corps Replacement Company</p>
+      </div>
+      <div id = "platoon_holder">
+        <h3>Platoon</h3>
+        <div class="platoon_selection">
+          <div class="platoon_row_one">
+            <input class = "check_box" id = "1ST" type="radio" name = "Platoon" value="1ST">
+            <label for="1ST">1ST</label><br>
+            <input class = "check_box" id = "2ND" type="radio" name = "Platoon" value="2ND">
+            <label for="2ND">2ND</label><br>
+          </div>
+          <div class="platoon_row_two">
+            <input class = "check_box" id = "3RD" type="radio" name = "Platoon" value="3RD">
+            <label for="3RD">3RD</label><br>
+            <input class = "check_box" id = "4TH" type="radio" name = "Platoon" value="4TH">
+            <label for="4TH">4TH</label><br>
+          </div>
+          <div class="platoon_row_three">
+            <input class = "check_box" id = "SENIOR" type="radio" name = "Platoon" value="SENIOR">
+            <label for="SENIOR">SENIOR</label><br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class = "Part_one">
+    <div class="Title">
+      <h2>Soldier Information</h2>
+    </div>
+    <div id="row_one">
+      <div class="box_one">
+        <label class = 'labs' for="">Arrival Date:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="date">
+        </div>
+      </div>
+      <div class="box_two">
+        <label class = 'labs' for="">Arrival Time:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="time">
+        </div>
+      </div>
+      <div class="box_three">
+        <label class = 'labs' for="">Losing Installation:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+    </div>
+    <div id="row_two">
+      <div class="box_one_row_two">
+        <label class = 'labs' for="">Name (Rank, Full Last, First):</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+      <div class="box_two_row_two">
+        <label class = 'labs' for="">Gaining Unit:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+    </div>
+
+    <div id="row_one">
+      <div class="box_one">
+        <label class = 'labs' for="">Phone Number:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+      <div class="box_two">
+        <label class = 'labs' for="">MOS:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+      <div class="box_three">
+        <label class = 'labs' for="">DODID:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+    </div>
+    <div id="row_four" class="r4">
+      <div class="box_one_row_two">
+        <label class = 'labs' for="email">Email (that you check):</label>
+        <div class="padded"> 
+          <input type = "email" id = "email" class = "text_box"required>
+        </div>
+      </div>
+      <div class="box_two_row_two">
+        <label class = 'labs' for="">Full SSN:</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+    </div>
+
+    <div id="row_five">
+      <div class="box_one">
+        <label class = 'labs' for="">Gender:</label>
+        <div class="padded"> 
+          <input class = "check_box" id = "Male" type="radio" name = "Gender" value="M">
+          <label for="M">Male</label><br>
+          <input class = "check_box" id = "Gender" type="radio" name = "Gender" value="F">
+          <label for="F">Female</label><br>
+        </div>
+      </div>
+      <div class="box_two">
+        <label class = 'labs' for="">POV:</label>
+        <div class="padded"> 
+          <input class = "check_box" id = "Yes_Pov" type="radio" name = "Pov" value="Yes_Pov">
+          <label for="Yes_Pov">Yes</label><br>
+          <input class = "check_box" id = "No_Pov" type="radio" name = "Pov" value="No_Pov">
+          <label for="No_Pov">No</label><br>
+        </div>
+      </div>
+      <div class="box_three">
+        <label class = 'labs' for="">Marital Status:</label>
+        <div class="padded"> 
+          <input class = "check_box" id = "Yes_Married" type="radio" name = "Marital_Status" value="Yes_Married">
+          <label for="Yes_Married">Yes</label><br>
+          <input class = "check_box" id = "No_Married" type="radio" name = "Marital_Status" value="No_Married">
+          <label for="No_Married">No</label><br>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="row_six">
+      <div class="box_one_row_two">
+        <label class = 'labs' for="Vaccination">COVID Vaccination Status (Select One):</label>
+        <div class="padded"> 
+          <select name="Vaccination" id="Vaccination" class="drop_down" required>
+            <option disabled selected value> -- select Status -- </option>
+            <option value="Partially Vaccinated">Partially Vaccinated</option>
+            <option value="Fully Vaccinated">Fully Vaccinated</option>
+            <option value="Unvaccinated">Unvaccinated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="row_seven">
+      <div class="box_one_row_two">
+        <label class = 'labs' for="Vaccination">Room Number/Address (Location where you are staying while assigned to 18th RC):</label>
+        <div class="padded"> 
+          <input class = "text_box" type="text">
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+
+
+    <div id = "Part_Two">
+      <div class="Title">
+        <h2>Emergency Contact Information</h2>
+      </div>
+      <div id="row_one_part_two">
+        <div class="box_one_part_two">
+          <label class = 'labs_Large' for="Emergency_name">
+            <p>Name</p>
+          </label>
+        </div>
+        <div class="box_two_part_two">
+          <div class="padded_two"> 
+            <input class = "text_box" type="text" id= "Emergency_name">
+          </div>
+        </div>
+      </div>
+      <div id="row_one_part_two">
+        <div class="box_one_part_two">
+          <label class = 'labs_Large' for="Emergency_relation">
+            <p>Relation to Soldier</p>
+          </label>
+        </div>
+        <div class="box_two_part_two">
+          <div class="padded_two"> 
+            <input class = "text_box" type="text" id= "Emergency_relation">
+          </div>
+        </div>
+      </div>
+
+      <div id="row_one_part_two">
+        <div class="box_one_part_two">
+          <label class = 'labs_Large' for="Emergency_address">
+            <p>Address</p>
+          </label>
+        </div>
+        <div class="box_two_part_two">
+          <div class="padded_two"> 
+            <input class = "text_box" type="text" id= "Emergency_address">
+          </div>
+        </div>
+      </div>
+
+
+      <div id="row_one_part_two_" >
+        <div class="box_one_part_two">
+          <label class = 'labs_Large' for="Emergency_number">
+            <p>Phone Number</p>
+          </label>
+        </div>
+        <div class="box_two_part_two">
+          <div class="padded_two"> 
+            <input class = "text_box" type="text" id= "Emergency_number">
+          </div>
+        </div>
+      </div>
+      </div>
+      <div id = "Part_Two">
+        <div class="Title_block">
+          <h2>Quarantine POC Information</h2>
+          <p>Only applies to barracks personnel placed on quarantine in gaining unit’s barracks</p>
+        </div>
+        <div id="row_one_part_two">
+          <div class="box_one_part_two">
+            <label class = 'labs_Large' for="Quarantine_name">
+              <p>Name</p>
+            </label>
+          </div>
+          <div class="box_two_part_two">
+            <div class="padded_two"> 
+              <input class = "text_box" type="text" id= "Quarantine_name">
+            </div>
+          </div>
+        </div>
+        <div id="row_one_part_two">
+          <div class="box_one_part_two">
+            <label class = 'labs_Large' for="Quarantine_Signature">
+              <p>Signature</p>
+            </label>
+          </div>
+          <div class="box_two_part_two">
+            <div class="padded_two"> 
+              <input class = "text_box" type="text" id= "Quarantine_Signature">
+            </div>
+          </div>
+        </div>
+  
+        <div id="row_one_part_two_" >
+          <div class="box_one_part_two">
+            <label class = 'labs_Large' for="Quarantine_number">
+              <p>Phone Number</p>
+            </label>
+          </div>
+          <div class="box_two_part_two">
+            <div class="padded_two"> 
+              <input class = "text_box" type="text" id= "Quarantine_number">
+            </div>
+          </div>
+        </div>
+        </div>
+  </div>
+</body>
+</html>
