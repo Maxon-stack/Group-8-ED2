@@ -1,11 +1,41 @@
-body{
-  padding: 50px;
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Rock+Salt|Shadows+Into+Light|Cedarville+Cursive');
 .header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   text-align: center;
+
+}
+@media (min-width : 1000px ){
+
+  
+}
+#img_holder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#title_holder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subtitle{
+  padding-top: 25px;
+  padding-bottom: 25px;
+  text-align: center;
+}
+.exitArea{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab{
+  display: none;
+}
+form{
+  padding-bottom: 50px;
 }
 #logo{
   width: 150px;
@@ -28,244 +58,58 @@ body{
   flex-direction: row;
   justify-content: space-between;
 }
-#Part_Two{
+
+.title_holder{
+  text-align: center;
+}
+.row_holder{
+  padding: 10px;
+}
+
+.input_area{
+  margin-top: 10px;
+}
+
+.section_styles{
   margin-top: 20px;
+  margin-bottom: 20px;
 }
-#row_one{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-evenly;
-  border-style: solid;
-  height: 75px;
-  grid-gap: 5px;
+/* Making inputs a minimum size for responsivenes  */
+input{
+  min-width: 160px;
 }
 
-.box_one{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid black ;
-}
-.box_two{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid black ;
-}
-.box_three{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.text_box{
-  height: 75%;
-  width: 75%;
-  padding: 0;
-  margin: 0;
-  font-size: x-large;
-  text-align: center;
-  
-}
-.labs{
-  padding-left: 5px;
-  z-index: 100;
-  font-size: x-large;
-}
-.padded{
-  justify-content: center;
-  display: flex;
-  padding-top: 5px;
-  
-}
-.Title{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  border-style: solid;
-  border-bottom: none;
-}
-#row_two{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-between;
-  border-style: solid;
-  border-top: none;
-  border-bottom: none;
-  height: 75px;
-  grid-gap: 5px;
-}
-.box_one_row_two{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid black ;
-  grid-column: span 2;
-}
-.box_two_row_two{
-  height: 100%;
-  width: 100%;
-  
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid black ;
-}
-#row_four{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-between;
-  border-style: solid;
-  border-top: none;
-  height: 75px;
-  grid-gap: 5px;
+.row_space{
+  padding: 20px;
 }
 
-#row_five{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-evenly;
-  border-style: solid;
-  border-top: none;
-  height: 75px;
-  grid-gap: 5px;
+.input-group-text{
+  min-width: 155px;
 }
-
-
-.radio{
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  margin-right: 10px;
+.signature{
+  font-family: 'Cedarville Cursive', cursive;
+  font-size: 1.5em;
 }
-.radio__input{
-  display: none;
-}
-
-.radio__radio{
-  width: 1.25em;
-  height: 1.25em;
-  border: 2px solid #d8e4e2;
-  border-radius: 50%;
-  margin-right: 10px;
-  box-sizing: border-box;
-  padding: 2px;
-}
-
-.radio__radio::after{
-  content: "";
-  width: 100%;
-  height: 100%;
+#form1{
   display: block;
-  background: #009879;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: transform 0.15s;
 }
-
-.radio__input:checked + .radio__radio::after{
-  transform: scale(1);
-}
-
-#row_six{
-
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-between;
-  border-style: solid;
-  border-top: none;
-  height: 75px;
-  grid-gap: 5px;
-
-}
-.drop_down{
-  padding-top: 5px;
-  font-size: large;
-}
-
-#row_seven{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-between;
-  border-style: solid;
-  border-top: none;
-  height: 75px;
-  grid-gap: 5px;
-}
-
-
-#row_one_part_two{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  justify-content: space-between;
-  border-style: solid;
-  border-bottom: none;
-  grid-gap: 5px;
-}
-
-
-.box_two_part_two{
-  height: 100%;
-  width: 100%;
+.btnHolder{
   display: flex;
-  justify-content: center;
-  text-align: center;
-  border-right: 2px solid black ;
-  grid-column: span 2;
-}
-.padded_two{
-  display: block;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  padding-top: 10px;
-
-}
-
-.box_one_part_two{
-  height: 100%;
-  width: 100%;
-  display: flex;
-  border-right: 2px solid black ;
-  justify-content: center;
-
-  
-
-}
-.labs_Large{
-  font-size: xx-large;
-}
-
-#row_one_part_two_{
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   justify-content: space-between;
-  border-style: solid;
-  grid-gap: 5px;
+  padding: 10px;
 }
 
-.Title_block{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  border-style: solid;
-  border-bottom: none;
+.otherInputs{
+  min-width: 0;
+  margin-left: 30px;
+  margin-top: 10px;
 }
-.Title_block p{
-  font-size: large;
-  margin: 0;
-  padding-bottom: 5px;
+.answerHolder{
+  display: inline-block;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding: 15px;
+}
+
+.specialCard{
+  margin-top: 25px;
 }
