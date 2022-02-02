@@ -20,6 +20,7 @@ const auth = firebase.auth();
 
 // Get a reference to the login form
 const loginForm = document.getElementById("login-form");
+const createAccountButton = document.getElementById("createAccountBtn");
 
 /**
  * On submitting the form, login with the user's credentials.
@@ -39,3 +40,16 @@ loginForm.addEventListener('submit', (e) => {
         alert(error.message);
     })
 })
+
+// Testing sample api endpoint, though this endpoint will be used in the future 
+// to create an account
+createAccountButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    fetch('http://localhost:3000/hello')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            loginForm.reset();
+        });
+});
