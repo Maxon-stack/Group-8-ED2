@@ -8,6 +8,7 @@ const loginForm = document.getElementById("login-form");
 
 // Buttons
 const createAccountButton = document.getElementById("createAccountBtn");
+const returnToDashboardBtn = document.getElementById('returnToDashboardBtn');
 
 /**
  * On submitting the form, login with the user's credentials.
@@ -24,14 +25,19 @@ loginForm.addEventListener('submit', (e) => {
         password: `${password}`
     };
 
-    fetch(`http://localhost:3000/login?username=${email}&password=${password}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data == 'Success') {
-                alert('Login was successful');
+    const loginURL = `http://localhost:3000/login?username=${email}&password=${password}`;
+
+    fetch(loginURL)
+        .then(response => {
+            response.json();
+            if (response.status === 200) {
+                alert('Logged in successfully.');
+            } else if (response.status === 404) {
+                alert('An account with this email was not found. Try creating an account.');
+            } else if (response.status === 401) {
+                alert('Login failure. Try a different password.');
             } else {
-                alert('Login attempt failed');
+                alert('Failed to login.');
             }
         });
 
@@ -43,4 +49,11 @@ createAccountButton.addEventListener('click', (e) => {
     e.preventDefault();
 
     window.location.href = "create_account.html";
+});
+
+// Navigate back to home page
+returnToDashboardBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    window.location.href = "../../index.html";
 });
