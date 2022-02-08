@@ -37,26 +37,27 @@
                 <span class="login100-form-title p-b-41">
                     Create an Account
                 </span>
-                <form id="login-form" class="login100-form validate-form p-b-33 p-t-5">
+                <form id="signup-form" class="login100-form validate-form p-b-33 p-t-5">
 
                     <div class="wrap-input100 validate-input" data-validate="Enter name">
-                        <input id="userName" class="input100" type="text" name="name" placeholder="Name">
+                        <input id="userName" class="input100" type="text" name="name" placeholder="Name" required />
                         <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input id="userEmail" class="input100" type="email" name="username" placeholder="Email address">
+                        <input id="userEmail" class="input100" type="email" name="username" placeholder="Email address"
+                            required />
                         <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input id="userPassword" class="input100" type="password" name="pass" placeholder="Password">
+                        <input id="userPassword" class="input100" type="password" name="pass" placeholder="Password"
+                            required />
                         <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                     </div>
 
-                    <!-- Create Account button, no implementation yet without database -->
                     <div class="container-login100-form-btn m-t-32">
-                        <button id="signupBtn" class="login100-form-btn">
+                        <button type="submit" id="signupBtn" class="login100-form-btn">
                             Sign Up
                         </button>
                     </div>
@@ -64,6 +65,12 @@
                     <div class="container-login100-form-btn m-t-32">
                         <button id="backToLoginBtn" class="login100-form-btn">
                             Back to Login
+                        </button>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-32">
+                        <button id="returnToDashboardBtn" class="login100-form-btn">
+                            Return to Dashboard
                         </button>
                     </div>
 
