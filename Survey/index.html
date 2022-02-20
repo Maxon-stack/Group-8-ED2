@@ -13,6 +13,13 @@
 </head>
 
 <body>
+
+
+
+
+
+
+
   <div class="container-xl holder">
     <form id='mainForm'>
       <div class="tab" style="display: block;">
@@ -40,6 +47,19 @@
         </p>
         <br>
         <br>
+
+        <div class="row row_holder">
+          <div class="col input_area">
+            <div class="form-floating">
+              <input type="date" class="form-control" id="Arrival_Date" placeholder="" value="" required
+                pattern="\d{4}-\d{2}-\d{2}" onchange=handleArrivalDate(this)>
+              <label for="Arrival_Date">Today's Date:</label>
+            </div>
+          </div>
+        </div> 
+        <br>
+        <br>
+
         <div class="Questions">
           <div class="card specialCard">
             <div class="card-header">
