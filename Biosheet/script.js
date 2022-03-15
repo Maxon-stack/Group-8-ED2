@@ -1,6 +1,7 @@
 let my_currentTab = 0;
-var user_bio = {
+var Individual_User = {
   Platoon: "",
+  Rank: "",
   ArrivalDate: "",
   ArrivalTime: "",
   LosingInstallation: "",
@@ -28,6 +29,12 @@ var user_bio = {
   
 
 } 
+function appOnSubmit(){
+  console.log('---submit starting---')
+  
+}
+
+
 function exitForm(){
   console.log("Exiting")
   var selectElements = document.getElementsByTagName('select');
