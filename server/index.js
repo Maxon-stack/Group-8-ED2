@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const converter = require('json-2-csv');
+const fs = require('fs');
+
 const connection = require('./database');
 
 const app = express();
@@ -15,7 +18,7 @@ app.use(bodyParser.json()); // for parsing json objects in request body
 const port = 3000;
 
 // Sample API endpoint
-app.get('/hello', (request, response) => {
+app.get('/', (request, response) => {
     response.status(200).json('Hello World!');
 });
 
@@ -28,25 +31,35 @@ app.get('/hello', (request, response) => {
  * This endpoint uses a SQL query for a database I setup on my local machine for testing purposes.
  * The database is not hosted anywhere else, so it won't work on someone else's machine.
  */
-app.get('/login', (request, response) => {
+app.get('/login', async (request, response) => {
     let admin = null;
 
     let sql = 'SELECT * FROM Administrators';
-    connection.query(sql, (error, results) => {
+    connection.query(sql, async (error, results) => {
         if (error) console.log(error);
 
         for (let i = 0; i < results.length; i++) {
-            const item = results[i];
-            if (request.query.username === item.username) {
-                console.log(item);
-                admin = item;
+            const record = results[i];
+            if (request.query.username === record.username) {
+                console.log(record);
+                admin = record;
             }
         }
 
-        if (admin && (admin.username === request.query.username && admin.password === request.query.password)) {
-            response.status(200).json('Success');
-        } else if (!admin) {
-            response.status(404).json('Account not found.')
+        if (admin) {
+            try {
+                const result = await bcrypt.compare(request.query.password, admin.password); // check encrypted password
+                if (result) {
+                    response.status(200).json('Success');
+                } else {
+                    response.status(500).json('Failure');
+                }
+            } catch {
+                response.status(500).json('Failure');
+            }
+        }
+        else if (!admin) {
+            response.status(400).json('Account not found.');
         } else {
             response.status(401).json('Failure');
         }
@@ -62,19 +75,29 @@ app.get('/login', (request, response) => {
  * This endpoint uses a SQL query for a database I setup on my local machine for testing purposes.
  * The database is not hosted anywhere else, so it won't work on someone else's machine.
  */
-app.get('/signup', (request, response) => {
-    let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, \`role\`, \`rank\`, \`username\`, \`password\`) VALUES (\'${request.query.name}\', \'Admin\', \'Sergeant\', \'${request.query.username}\', \'${request.query.password}\');`;
-    connection.query(sql, (error, results) => {
-        if (error) console.error(error);
+app.get('/signup', async (request, response) => {
+    try {
+        const hashedPass = await bcrypt.hash(request.query.password, 10); // encrypt password via hash algorithm
+        console.log(hashedPass);
 
-        if (!error) {
-            response.status(201).json('Success');
-        } else if (error.code === 'ER_DUP_ENTRY') {
-            response.status(403).json('An account with this email already exists.');
-        } else {
-            response.status(500).json('Failure');
-        }
-    });
+        /* Allow Rank/Role properties? If so, implement in UI instead of hardcoding it. */
+        let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, \`role\`, 
+        \`rank\`, \`username\`, \`password\`) VALUES (\'${request.query.name}\', \'Admin\', 
+        \'Sergeant\', \'${request.query.username}\', \'${hashedPass}\');`;
+        connection.query(sql, (error, results) => {
+            if (error) console.error(error);
+
+            if (!error) {
+                response.status(201).json('Success');
+            } else if (error.code === 'ER_DUP_ENTRY') {
+                response.status(403).json('An account with this email already exists.');
+            } else {
+                response.status(500).json('Failure');
+            }
+        });
+    } catch {
+        response.status(500).json('Failure');
+    }
 });
 
 /**
@@ -83,8 +106,7 @@ app.get('/signup', (request, response) => {
  * For soldiers submitting their bio sheet, questionnaire, etc., this endpoint will be 
  * designed to inject the data into the database in the appropriate table.
  */
-app.post('submit-form', (request, response) => {
-
+app.get('/submit-form', (request, response) => {
 });
 
 /**
@@ -93,8 +115,24 @@ app.post('submit-form', (request, response) => {
  * For admins, this endpoint will be designed to pull data from the database and export it 
  * into a CSV file. 
  */
-app.get('export-data', (request, response) => {
+app.get('/admindata', (request, response) => {
+    let sql = 'SELECT * FROM Administrators';
+    connection.query(sql, (error, results) => {
+        if (error) console.log(error);
 
+        const jsonData = JSON.parse(JSON.stringify(results));
+
+        converter.json2csv(jsonData, (err, csv) => {
+            if (err) { console.error(err) };
+
+            console.log(csv);
+
+            fs.writeFileSync('admin_data.csv', csv);
+        });
+
+        // Respond with CSV file from database data
+        response.status(200).attachment('admin_data.csv').sendFile(__dirname + '/admin_data.csv');
+    });
 });
 
 app.listen(port, () => {
