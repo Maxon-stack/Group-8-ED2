@@ -198,8 +198,8 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6 id="formsToday">145</h6>
+                      <span class="text-success small pt-1 fw-bold" id="formsTodayChange">12%</span> <span class="text-muted small pt-2 ps-1" id="formsTodayChangeType">increase</span>
 
                     </div>
                   </div>
@@ -226,15 +226,15 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Another Stat <span>| This Month</span></h5>
+                  <h5 class="card-title">TBA Usage <span>| This Month</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6>$0</h6>
+                      <span class="text-success small pt-1 fw-bold">0%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
                   </div>
@@ -269,8 +269,8 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                      <h6 id="soldiers">1244</h6>
+                      <span class="text-danger small pt-1 fw-bold" id="soldiersChange">12%</span> <span class="text-muted small pt-2 ps-1" id="soldiersChangeType">decrease</span>
 
                     </div>
                   </div>
@@ -303,7 +303,7 @@
                   <!-- Line Chart -->
                   <div id="reportsChart"></div>
 
-                  <script>
+                  <!--<script>
                     document.addEventListener("DOMContentLoaded", () => {
                       new ApexCharts(document.querySelector("#reportsChart"), {
                         series: [{
@@ -360,7 +360,7 @@
                         }
                       }).render();
                     });
-                  </script>
+                  </script>-->
                   <!-- End Line Chart -->
 
                 </div>
@@ -399,7 +399,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <!--<tr>
                         <th scope="row"><a href="#">#2457</a></th>
                         <td>Brandon Jacob</td>
                         <td><a href="#" class="text-primary">At praesentium minu</a></td>
@@ -433,7 +433,7 @@
                         <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
                         <td>SENIOR</td>
                         <td><span class="badge bg-success">Reviewed</span></td>
-                      </tr>
+                      </tr>-->
                     </tbody>
                   </table>
 
@@ -454,13 +454,22 @@
               <h5 class="card-title">Export Data</h5>
 
               <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-primary" type="button">Download Excel 1</button>
+                <button id="download1" class="btn btn-primary" type="button">Download 1st Platoon</button>
               </div>
               <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-primary" type="button">Download Excel 2</button>
+                <button id="download2" class="btn btn-primary" type="button">Download 2nd Platoon</button>
               </div>
               <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-primary" type="button">Download Excel 3</button>
+                <button id="download3" class="btn btn-primary" type="button">Download 3rd Platoon</button>
+              </div>
+              <div class="d-grid gap-2 mt-3">
+                <button id="download4" class="btn btn-primary" type="button">Download Senior SignIn</button>
+              </div>
+              <div class="d-grid gap-2 mt-3">
+                <button id="download5" class="btn btn-primary" type="button">Download Shipping Roster</button>
+              </div>
+              <div class="d-grid gap-2 mt-3">
+                <button id="download6" class="btn btn-primary" type="button">Download New Arrivals</button>
               </div>
 
             </div>
@@ -482,11 +491,11 @@
             </div>
 
             <div class="card-body pb-0">
-              <h5 class="card-title">Some Stats <span>| This Month</span></h5>
+              <h5 class="card-title">TBA Usage <span>| This Month</span></h5>
 
               <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
 
-              <script>
+              <!--<script>
                 document.addEventListener("DOMContentLoaded", () => {
                   var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
                     legend: {
@@ -535,7 +544,7 @@
                     }]
                   });
                 });
-              </script>
+              </script>-->
 
             </div>
           </div><!-- End Budget Report -->
@@ -560,7 +569,7 @@
 
               <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 
-              <script>
+              <!--<script>
                 document.addEventListener("DOMContentLoaded", () => {
                   echarts.init(document.querySelector("#trafficChart")).setOption({
                     tooltip: {
@@ -613,7 +622,7 @@
                     }]
                   });
                 });
-              </script>
+              </script>-->
 
             </div>
           </div><!-- End Website Traffic -->
