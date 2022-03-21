@@ -31,7 +31,8 @@ loginForm.addEventListener('submit', (e) => {
         .then(response => {
             response.json();
             if (response.status === 200) {
-                alert('Logged in successfully.');
+                //alert('Logged in successfully.');
+                window.open("../Login/Admin/index.html");
             } else if (response.status === 404) {
                 alert('An account with this email was not found. Try creating an account.');
             } else if (response.status === 401) {

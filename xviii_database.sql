@@ -24,11 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `new-arrivals`
+-- Table structure for table `new_arrivals`
 --
 
-DROP TABLE IF EXISTS `new-arrivals`;
-CREATE TABLE IF NOT EXISTS `new-arrivals` (
+DROP TABLE IF EXISTS `new_arrivals`;
+CREATE TABLE IF NOT EXISTS `new_arrivals` (
   `PLT` varchar(25) DEFAULT NULL,
   `DODID` varchar(25) NOT NULL,
   `SSN` varchar(25) DEFAULT NULL,
@@ -53,14 +53,13 @@ CREATE TABLE IF NOT EXISTS `new-arrivals` (
   UNIQUE KEY `DODID` (`DODID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
 --
--- Table structure for table `platoon-one`
+-- Table structure for table `platoon_one`
 --
 
-DROP TABLE IF EXISTS `platoon-one`;
-CREATE TABLE IF NOT EXISTS `platoon-one` (
+DROP TABLE IF EXISTS `platoon_one`;
+CREATE TABLE IF NOT EXISTS `platoon_one` (
   `DODID` varchar(25) NOT NULL,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) DEFAULT NULL,
@@ -79,21 +78,13 @@ CREATE TABLE IF NOT EXISTS `platoon-one` (
   UNIQUE KEY `DODID` (`DODID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `platoon-one`
---
-
-INSERT INTO `platoon-one` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
-('', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
 
 --
--- Table structure for table `platoon-three`
+-- Table structure for table `platoon_two`
 --
 
-DROP TABLE IF EXISTS `platoon-three`;
-CREATE TABLE IF NOT EXISTS `platoon-three` (
+DROP TABLE IF EXISTS `platoon_two`;
+CREATE TABLE IF NOT EXISTS `platoon_two` (
   `DODID` varchar(25) NOT NULL,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) DEFAULT NULL,
@@ -112,14 +103,13 @@ CREATE TABLE IF NOT EXISTS `platoon-three` (
   UNIQUE KEY `DODID` (`DODID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
 --
--- Table structure for table `platoon-two`
+-- Table structure for table `platoon_three`
 --
 
-DROP TABLE IF EXISTS `platoon-two`;
-CREATE TABLE IF NOT EXISTS `platoon-two` (
+DROP TABLE IF EXISTS `platoon_three`;
+CREATE TABLE IF NOT EXISTS `platoon_three` (
   `DODID` varchar(25) NOT NULL,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) DEFAULT NULL,
@@ -137,8 +127,69 @@ CREATE TABLE IF NOT EXISTS `platoon-two` (
   PRIMARY KEY (`DODID`),
   UNIQUE KEY `DODID` (`DODID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `platoon_four`
+--
+
+DROP TABLE IF EXISTS `platoon_four`;
+CREATE TABLE IF NOT EXISTS `platoon_four` (
+  `DODID` varchar(25) NOT NULL,
+  `first_name` varchar(25) NOT NULL,
+  `last_name` varchar(25) DEFAULT NULL,
+  `rank` varchar(25) DEFAULT NULL,
+  `MOS` varchar(25) DEFAULT NULL,
+  `unit` varchar(25) DEFAULT NULL,
+  `gender` varchar(25) DEFAULT NULL,
+  `room_number` varchar(25) DEFAULT NULL,
+  `phone_number` varchar(25) DEFAULT NULL,
+  `arrival_date` varchar(25) DEFAULT NULL,
+  `days_in_processing` varchar(25) DEFAULT NULL,
+  `vaccine_status` varchar(25) DEFAULT NULL,
+  `SSN` varchar(25) DEFAULT NULL,
+  `PLT` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`DODID`),
+  UNIQUE KEY `DODID` (`DODID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `platoon_senior`
+--
+
+DROP TABLE IF EXISTS `platoon_senior`;
+CREATE TABLE IF NOT EXISTS `platoon_senior` (
+  `DODID` varchar(25) NOT NULL,
+  `first_name` varchar(25) NOT NULL,
+  `last_name` varchar(25) DEFAULT NULL,
+  `rank` varchar(25) DEFAULT NULL,
+  `MOS` varchar(25) DEFAULT NULL,
+  `unit` varchar(25) DEFAULT NULL,
+  `gender` varchar(25) DEFAULT NULL,
+  `room_number` varchar(25) DEFAULT NULL,
+  `phone_number` varchar(25) DEFAULT NULL,
+  `arrival_date` varchar(25) DEFAULT NULL,
+  `days_in_processing` varchar(25) DEFAULT NULL,
+  `vaccine_status` varchar(25) DEFAULT NULL,
+  `SSN` varchar(25) DEFAULT NULL,
+  `PLT` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`DODID`),
+  UNIQUE KEY `DODID` (`DODID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--
+-- Dumping data for table `platoon_one`
+--
+
+INSERT INTO `platoon_one` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
+('1', 'Dan', 'Man', '1st', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill');
