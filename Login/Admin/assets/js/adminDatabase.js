@@ -1,6 +1,7 @@
 //var mysql = require('mysql');
 
 var gotData = {
+	connected: false,
 	elementChanges: [],
 	//forms: [],
 	formsSize: 0,
@@ -47,6 +48,7 @@ if (conn)
 conn.connect(function(err){
 	if (err) throw err;
 	console.log('Connected!');
+	gotData.connected = true;
 	
 	//	query for soilder sizes
 	conn.query("SELECT COUNT(*) FROM platoon_one", function (err, res, fields){
@@ -187,6 +189,16 @@ for (let [buttonName, fileName] of buttonToFile) {
 
 // temp returned data for page population
 
+let databaseConnection = document.getElementById("databaseConnection");
+if (databaseConnection) {
+	databaseConnection.innerHTML = "| " + (gotData.databaseConnection ? "Connected" : "Not Connected");
+}
+let enterDatabase = document.getElementById("enterDatabase");
+if (enterDatabase) {
+	enterDatabase.onclick = function(){
+		//window.open("");
+	};
+}
 
 // simple element text change
 let formsToday = document.getElementById('formsToday');
