@@ -25,18 +25,28 @@ loginForm.addEventListener('submit', (e) => {
         password: `${password}`
     };
 
-    const loginURL = `http://localhost:3000/login?username=${email}&password=${password}`;
+    const loginURL = `http://localhost:3000/login`;
 
-    fetch(loginURL)
+    fetch(loginURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+    })
         .then(response => {
             response.json();
             if (response.status === 200) {
                 alert('Logged in successfully.');
+                window.location.replace('Admin/index.html');
             } else if (response.status === 404) {
                 alert('An account with this email was not found. Try creating an account.');
             } else if (response.status === 401) {
                 alert('Login failure. Try a different password.');
-            } else {
+            } else if (response.status === 403) {
+                alert('Access denied.');
+            }
+            else {
                 alert('Failed to login.');
             }
         });
@@ -45,15 +55,15 @@ loginForm.addEventListener('submit', (e) => {
 });
 
 // Navigate to account creation page
-createAccountButton.addEventListener('click', (e) => {
-    e.preventDefault();
+// createAccountButton.addEventListener('click', (e) => {
+//     e.preventDefault();
 
-    window.location.href = "create_account.html";
-});
+//     window.location.href = "create_account.html";
+// });
 
 // Navigate back to home page
 returnToDashboardBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    window.location.href = "../../index.html";
+    window.location.replace('../../index.html');
 });
