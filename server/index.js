@@ -8,6 +8,7 @@ const fs = require('fs');
 require('dotenv').config();
 
 const connection = require('./database');
+const serverAdminDatabase = require('./serverAdminDatabase');
 
 const app = express();
 app.use(cors()); // Cross Origin Resource Sharing
@@ -82,6 +83,14 @@ app.post('/login', async (request, response) => {
         }
     });
 });
+
+/**
+ * This endpoint is for forwarding gotData information from the serverAdminDatabase file
+ * to the adminDatabase file which deals with populating admin webpage.
+*/
+app.get("getGotData", async (request, response) => {
+    response.status(200).json(serverAdminDatabase());
+})
 
 /**
  * Generates an access token with a session expiry timer. 
