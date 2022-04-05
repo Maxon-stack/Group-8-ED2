@@ -1,11 +1,7 @@
 -- phpMyAdmin SQL Dump
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3306
--- Generation Time: Mar 16, 2022 at 01:11 AM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- User wamp server or something similar to Copy and paste Queries to add it to your local computer. Changes made on your local computer will not reflect else where so come back and add your queries here and push it and let the group know.
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

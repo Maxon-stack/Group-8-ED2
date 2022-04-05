@@ -1,40 +1,80 @@
-let my_currentTab = 0;
-var Individual_User = {
-  Platoon: "",
-  Rank: "",
-  ArrivalDate: "",
-  ArrivalTime: "",
-  LosingInstallation: "",
-  FirstName: "",
-  LastName: "",
-  GainingUnit: "",
-  PhoneNumber: "",
-  MOS: "",
+MYURL = ""
+var UserInputs = {
+  platoon: "",
+  rank: "",
+  arrival_date: "",
   DODID: "",
-  Email: "",
-  FullSSN: "",
-  Gender: "",
-  POV: "",
-  Gender: "",
-  MaritalStatus: "",
-  COVIDVaccinationStatus: "",
-  Address: "",
-  EmergencyName: "",
-  EmergencyRelation: "",
-  EmergencyAddress: "",
-  EmergencyPhone: "",
-  QuarantinePhone: "",
-  QuarantineSignature: "",
-  QuarantineName: "",
-  
+  first_name: "",
+  last_name: "",
+  MOS: "",
+  ASI: "",
+  gaining_unit: "",
+  SSN: "",
+  date_of_birth: "",
+  place_of_birth: "",
+  gender: "",
+  security_clearence: "",
+  BASD: "",
+  DOR: "",
+  ETS: "",
+  marital_status: "",
+  home_of_record: "",
+  blood_type: "",
+  glasses: "",
+  inserts: "",
+  color_blind: "",
+  covid_vaccine: "",
+  personal_email: "",
+  army_email: "",
+  street_address: "",
+  address_line_2: "",
+  city: "",
+  state: "",
+  zip: "",
+  phone_number: "",
 
+  emergency_name: "",
+  emergency_phone_number: "",
+  emergency_relation: "",
+  emergency_email: "",
+  emergency_street_address: "",
+  emergency_address_line_2: "",
+  emergency_city: "",
+  emergency_state: "",
+  emergency_zip: "",
+  bh_Stigma : {
+    q_one: "",
+    q_two: [],
+    q_three: [],
+    q_four: [],
+    q_five: [],
+    q_six: "",
+    q_seven: "",
+    q_eight: "",
+    q_nine: "",
+    q_ten: "",
+  }
+  
 } 
-function appOnSubmit(){
+function appOnSubmit(event){
+  event.preventDefault();
   console.log('---submit starting---')
+  console.log(UserInputs)
+  var xhr = new XMLHttpRequest();
+  xhr.open('PUT', MYURL);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.send(JSON.stringify(UserInputs));
+  xhr.onload = function() {
+    alert(`Loaded: ${xhr.status} ${xhr.response}`);
+  };
+  
+  xhr.onerror = function() { // only triggers if the request couldn't be made at all
+    alert(`Failed to send user inputs`);
+  };
   
 }
-
-
+//clearing all inputs
 function exitForm(){
   console.log("Exiting")
   var selectElements = document.getElementsByTagName('select');
@@ -54,148 +94,268 @@ function exitForm(){
   }
   window.location.href='https://maxon-stack.github.io/Group-8-ED2/';
 }
-
 function handlePlatoon(event){
-  user_bio.Platoon = event.value
-  //console.log(user_bio.Platoon)
-}
-function handleArrivalDate(event){
-
-  user_bio.ArrivalDate = event.value
-}
-function handleArrivalTime(event){
-
-  user_bio.ArrivalTime = event.value
-}
-
-function handleLosingInstallation(event){
-
-  user_bio.LosingInstallation = event.value
-}
-function handleFirstName(event){
-
-  user_bio.FirstName = event.value
-}
-function handleLastName(event){
-
-  user_bio.LastName = event.value
+  UserInputs.platoon = event.value
 }
 function handleGainingUnit(event){
-
-  user_bio.GainingUnit = event.value
-}
-function handlePhoneNumber(event){
-
-  user_bio.PhoneNumber = event.value
-}
-function handleMOS(event){
-
-  user_bio.MOS = event.value
+  UserInputs.gaining_unit = event.value
 }
 function handleDODID(event){
-
-  user_bio.DODID = event.value
+  UserInputs.DODID = event.value
 }
-function handleEmail(event){
-
-  user_bio.Email = event.value
+function handleSSN(event){
+  UserInputs.SSN = event.value
 }
-//encrypt ssn
-function handleFullSSN(event){
-
-  user_bio.FullSSN = event.value
+function handleFirstName(event){
+  UserInputs.first_name = event.value
 }
+function handleLastName(event){
+  UserInputs.last_name = event.value
+}
+function handleRank(event){
+  UserInputs.rank = event.value
+}
+function handleMOS(event){
+  UserInputs.MOS = event.value
+}
+function handleASI(event){
+  UserInputs.ASI = event.value
+}
+function handleBirthday(event){
+  UserInputs.date_of_birth = event.value
+}
+function handlePlaceOfBirth(event){
+  UserInputs.place_of_birth = event.value
+}
+
 function handleGender(event){
-
-  user_bio.Gender = event.value
+  UserInputs.gender = event.value
 }
-function handlePOV(event){
-
-  user_bio.POV = event.value
+function handleHomeOfRecord(event){
+  UserInputs.home_of_record = event.value
+}
+function handleETS(event){
+  UserInputs.ETS = event.value
+}
+function handleSecurityClearance(event){
+  UserInputs.security_clearence = event.value
+}
+function handleBASD(event){
+  UserInputs.BASD = event.value
+}
+function handleDOR(event){
+  UserInputs.DOR = event.value
 }
 function handleMaritalStatus(event){
-
-  user_bio.MaritalStatus = event.value
+  UserInputs.marital_status = event.value
 }
-function handleCOVIDVaccinationStatus(event){
-
-  user_bio.COVIDVaccinationStatus = event.value
+function handleBloodType(event){
+  UserInputs.blood_type = event.value
 }
-// ask sponsor how address will work
-function handleAddress(event){
-
-  user_bio.Address = event.value
+function handleGlasses(event){
+  UserInputs.glasses = event.value
+}
+function handleInserts(event){
+  UserInputs.inserts = event.value
+}
+function handleColorBlind(event){
+  UserInputs.color_blind = event.value
+}
+function handleCOVID(event){
+  UserInputs.covid_vaccine = event.value
+}
+function handlePhoneNumber(event){
+  UserInputs.phone_number = event.value
+}
+function handlePersonalEmail(event){
+  UserInputs.personal_email = event.value
+}
+function handleArmyEmail(event){
+  UserInputs.army_email = event.value
+}
+function handleStreet(event){
+  UserInputs.street_address = event.value
+}
+function handleStreetTwo(event){
+  UserInputs.address_line_2 = event.value
+}
+function handleCity(event){
+  UserInputs.city = event.value
+}
+function handleState(event){
+  UserInputs.state = event.value
+}
+function handleZip(event){
+  UserInputs.zip = event.value
 }
 function handleEmergencyName(event){
-
-  user_bio.EmergencyName = event.value
+  UserInputs.emergency_name = event.value
 }
 function handleEmergencyRelation(event){
-  user_bio.EmergencyRelation = event.value
-}
-function handleEmergencyAddress(event){
-  user_bio.EmergencyAddress = event.value
+  UserInputs.emergency_relation = event.value
 }
 function handleEmergencyPhone(event){
-  user_bio.EmergencyPhone = event.value
+  UserInputs.emergency_phone_number = event.value
 }
-function handleQuarantinePhone(event){
-  user_bio.QuarantinePhone = event.value
+function handleEmergencyEmail(event){
+  UserInputs.emergency_email = event.value
 }
-function handleQuarantineSignature(event){
-  user_bio.QuarantineSignature = event.value
+function handleEmergencyStreetOne(event){
+  UserInputs.emergency_street_address = event.value
 }
-function handleQuarantineName(event){
-  user_bio.QuarantineName = event.value
+function handleEmergencyStreetTwo(event){
+  UserInputs.emergency_address_line_2 = event.value
 }
-
+function handleEmergencyCity(event){
+  UserInputs.emergency_city = event.value
+}
+function handleEmergencyState(event){
+  UserInputs.emergency_state = event.value
+}
+function handleEmergencyZip(event){
+  UserInputs.emergency_state = event.value
+}
+function handleArrivalDate(event){
+  UserInputs.arrival_date = event.value
+}
 function handleNextPage(){
-  console.log(user_bio)
-}
-window.onload = function(){
-  var currentTab = 0;
-  showTab(currentTab);
+  console.log(UserInputs)
 }
 
 
-function showTab(currentTab) {
-  // This function will display the specified tab of the form...
+/*
+The following code is for the form validation and is used to decide which form the user is on and displays the correct form.
+*/
+var form = document.getElementById("Bio-Form");
+form.addEventListener('submit', handleNextFromBio);
+function handleNextFromBio(event){
+  event.preventDefault();
+  document.getElementById('Bio-Form').style.display = 'none';
+  document.getElementById('Memo-Form').style.display = 'block';
   window.scrollTo(0,0);
-  my_currentTab = currentTab
-  var allTabs = document.getElementsByClassName("tab");
-  console.log(allTabs)
-  allTabs[currentTab].style.display = "block";
-  //... and fix the Previous/Next buttons:
-  if (currentTab == 0) {
-    document.getElementById("prevBtn").disabled = true;
-  } else {
-    document.getElementById("prevBtn").disabled = false;
-  }
-  if (currentTab == (allTabs.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
-  } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
-  }
-  //... and run a function that will display the correct step indicator:
 }
 
-function nextPrev(n) {
-  currentTab = my_currentTab
-  // This function will figure out which tab to display
-  var x = document.getElementsByClassName("tab");
-  // Exit the function if any field in the current tab is invalid:
-  console.log(x)
-  //if (n == 1 ) return false;
-  // Hide the current tab:
-  x[currentTab].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTab = currentTab + n;
-  // if you have reached the end of the form...
-  if (currentTab >= x.length) {
-    // ... the form gets submitted:
-    //document.getElementById("regForm").submit();
-    return false;
+var form = document.getElementById("Memo-Form");
+form.addEventListener('submit', handleNextFromMemo);
+function handleNextFromMemo(event){
+  event.preventDefault();
+  document.getElementById('Memo-Form').style.display = 'none';
+  document.getElementById('BH-Form').style.display = 'block';
+  window.scrollTo(0,0);
+}
+function HandleReturnToBio(){
+  document.getElementById('Bio-Form').style.display = 'block';
+  document.getElementById('Memo-Form').style.display = 'none';
+  window.scrollTo(0,0);
+}
+function HandleReturnToMemo(){
+   document.getElementById('Memo-Form').style.display = 'block';
+   document.getElementById('BH-Form').style.display = 'none';
+   window.scrollTo(0,0);
+}
+var form = document.getElementById("BH-Form");
+form.addEventListener('submit', handleSubmitForm);
+function handleSubmitForm(event){
+  event.preventDefault();
+  console.log(UserInputs)
+  getValueOfOne();
+  getChecksFromTwo();
+  getChecksFromThree();
+  getChecksFromFour();
+  getValueOfFive();
+  getValueOfSix();
+  getValueOfSeven();
+  getValueOfEight();
+  getValueOfNine();
+  getValueOfTen();
+}
+function getValueOfOne(){
+  var questionOne = document.getElementsByName('Q1');
+  for (var i=0; i < questionOne.length; i++) { 
+    if (questionOne[i].checked) {
+      UserInputs.bh_Stigma.q_one = questionOne[i].value
+      break
+    }
   }
-  // Otherwise, display the correct tab:
-  showTab(currentTab);
+}
+function getChecksFromTwo(){
+  questionTwo = document.getElementsByClassName('questionTwo');
+  for (var i = 0; i < questionTwo.length; i++) {
+    if (questionTwo[i].checked) {
+      value = questionTwo[i].nextElementSibling.innerHTML
+      UserInputs.bh_Stigma.q_two.push(value)
+    }
+  }
+}
+function getChecksFromThree(){
+  questionThree = document.getElementsByClassName('questionThree');
+  for (var i = 0; i < questionThree.length; i++) {
+    if (questionThree[i].checked) {
+      value = questionThree[i].nextElementSibling.innerHTML
+      UserInputs.bh_Stigma.q_three.push(value)
+    }
+  }
+}
+function getChecksFromFour(){
+  questionFour = document.getElementsByClassName('questionFour');
+  for (var i = 0; i < questionFour.length; i++) {
+    if (questionFour[i].checked) {
+      value = questionFour[i].nextElementSibling.innerHTML
+      UserInputs.bh_Stigma.q_four.push(value)
+    }
+  }
+}
+function getValueOfFive(){
+  var questionFive = document.getElementsByName('Q_Five');
+  for (var i=0; i < questionFive.length; i++) { 
+    if (questionFive[i].checked) {
+      UserInputs.bh_Stigma.q_five = questionFive[i].value
+      break
+    }
+  }
+}
+function getValueOfSix(){
+  var questionSix = document.getElementsByName('Q_Six');
+  for (var i=0; i < questionSix.length; i++) { 
+    if (questionSix[i].checked) {
+      UserInputs.bh_Stigma.q_six = questionSix[i].value
+      break
+    }
+  }
+}
+function getValueOfSeven(){
+  var questionSeven = document.getElementsByName('Q_Seven');
+  for (var i=0; i < questionSeven.length; i++) { 
+    if (questionSeven[i].checked) {
+      UserInputs.bh_Stigma.q_seven = questionSeven[i].value
+      break
+    }
+  }
+}
+function getValueOfEight(){
+  var questionEight = document.getElementsByName('Q_Eight');
+  for (var i=0; i < questionEight.length; i++) { 
+    if (questionEight[i].checked) {
+      UserInputs.bh_Stigma.q_eight = questionEight[i].value
+      break
+    }
+  }
+}
+function getValueOfNine(){
+  var questionNine = document.getElementsByName('Q_Nine');
+  for (var i=0; i < questionNine.length; i++) { 
+    if (questionNine[i].checked) {
+      UserInputs.bh_Stigma.q_nine = questionNine[i].value
+      break
+    }
+  }
+}
+function getValueOfTen(){
+  var questionTen = document.getElementsByName('Q_Ten');
+  for (var i=0; i < questionTen.length; i++) { 
+    if (questionTen[i].checked) {
+      UserInputs.bh_Stigma.q_ten = questionTen[i].value
+      break
+    }
+  }
 }

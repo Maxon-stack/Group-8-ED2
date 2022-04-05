@@ -9,283 +9,620 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+
 </head>
 
 <body>
   <div class="container-xl">
-
-    <form id = 'mainForm'>
+    <form id='Bio-Form' class="">
       <!-- Start of BioSheet page -->
-      <div class="tab">
-        <div class="header">
-          <div id="img_holder">
-            <img src="department_def.png" id="logo" alt="">
-          </div>
-          <div id='title_holder'>
-            <h1>BIO SHEET</h1>
-          </div>
-          <div class="exitArea">
-            <button 
-            type="button" onclick=exitForm()
-            class="btn btn-danger exitButton">Exit Form</button>
-          </div>
+      <div class="header">
+        <div id="img_holder">
+          <img src="department_def.png" id="logo" alt="">
         </div>
-        <h4 class="subtitle">XVIII Airborne Corps Replacement Company</h4>
-        <div class="col">
-          <section class="card section_styles">
-            <div class="title_holder">
-              <h2>
-                Soldier Information
-              </h2>
-            </div>
-            <!-- Start Row 6 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col-12 input_area">
-                <div class="form-floating">
-                  <select class="form-select" id="PLATOON" aria-label="Floating label select example"
-                    onchange=handlePlatoon(this)>
-                    <option disabled selected></option>
-                    <option value="1">1ST</option>
-                    <option value="2">2ND</option>
-                    <option value="3">3RD</option>
-                    <option value="4">4TH</option>
-                    <option value="Senior">Senior</option>
-                  </select>
-                  <label for="PLATOON">PLATOON:</label>
-                </div>
+        <div id='title_holder'>
+          <h1>XVIII AIRBORNE CORPS RECEPTION & INTEGRATION READINESS DATA SHEET</h1>
+        </div>
+        <div class="exitArea">
+          <button type="button" onclick=exitForm() class="btn btn-danger exitButton">Exit Form</button>
+        </div>
+      </div>
+      <h4 class="subtitle"></h4>
+      <div class="col">
+        <section class="card section_styles">
+          <div class="title_holder">
+            <h2>
+              Individual Information
+            </h2>
+          </div>
+          <!-- Start Row 6 Solider Information Section -->
+          <div class="row row_holder">
+            <div class="col-12 input_area">
+              <div class="form-floating">
+                <select class="form-select" id="PLATOON" aria-label="Floating label select example"
+                  onchange=handlePlatoon(this)>
+                  <option disabled selected></option>
+                  <option value="1">1ST</option>
+                  <option value="2">2ND</option>
+                  <option value="3">3RD</option>
+                  <option value="4">4TH</option>
+                  <option value="Senior">Senior</option>
+                </select>
+                <label for="PLATOON">PLATOON:</label>
               </div>
+            </div>
+          </div>
+          <!-- End Row 6 Solider Information Section -->
+          <!-- Start Row 1 Solider Information Section -->
+          <div class="row row_holder">
+            <div class="col input_area ">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="Gaining_Unit" placeholder="" value=""
+                  onchange=handleGainingUnit(this)>
+                <label for="Gaining_Unit:">Gaining Unit:</label>
+              </div>
+            </div>
+            <div class="col input_area ">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="DODID" placeholder="" value="" onchange=handleDODID(this)>
+                <label for="DODID:">DODID:</label>
+              </div>
+            </div>
 
-            </div>
-            <!-- End Row 6 Solider Information Section -->
-            <!-- Start Row 1 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col input_area">
-                <div class="form-floating">
-                  <input type="date" class="form-control" id="Arrival_Date" placeholder="" value="" required
-                    pattern="\d{4}-\d{2}-\d{2}" onchange=handleArrivalDate(this)>
-                  <label for="Arrival_Date">Arrival Date:</label>
-                </div>
-              </div>
-              <div class="col input_area">
-                <div class="form-floating ">
-                  <input type="time" class="form-control" id="Arrival_Time" placeholder="" value="" required
-                    pattern="\d{4}-\d{2}-\d{2}" onchange=handleArrivalTime(this)>
-                  <label for="Arrival_Time">Arrival Time:</label>
-                </div>
-              </div>
-              <div class="col input_area ">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="Losing_Installation" placeholder="" value="" required
-                    pattern="\d{4}-\d{2}-\d{2}" onchange=handleLosingInstallation(this)>
-                  <label for="Losing_Installation">Losing Installation:</label>
-                </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="FullSSN" placeholder=""value="" onchange=handleSSN(this)>
+                <label for="FullSSN">Full SSN:</label>
               </div>
             </div>
-            <!-- End Row 1 Solider Information Section -->
+          </div>
+          <!-- End Row 1 Solider Information Section -->
 
-            <!-- Start Row 2 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col input_area">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="FirstName" placeholder="" value=""
-                    onchange=handleFirstName(this)>
-                  <label for="First Name">First Name:</label>
-                </div>
-              </div>
-              <div class="col input_area">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="LastName" placeholder="" value=""
-                    onchange=handleLastName(this)>
-                  <label for="Last Name">First Name:</label>
-                </div>
-              </div>
-              <div class="col input_area ">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="Gaining_Unit" placeholder="" value=""
-                    onchange=handleGainingUnit(this)>
-                  <label for="Gaining_Unit:">Gaining Unit:</label>
-                </div>
+          <!-- Start Row 2 Solider Information Section -->
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="FirstName" placeholder="" value=""
+                  onchange=handleFirstName(this)>
+                <label for="FirstName">First Name:</label>
               </div>
             </div>
-            <!-- End Row 2 Solider Information Section -->
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="LastName" placeholder="" value=""
+                  onchange=handleLastName(this)>
+                <label for="LastName">Last Name:</label>
+              </div>
+            </div>
 
-            <!-- Start Row 3 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col input_area">
+          </div>
+          <!-- End Row 2 Solider Information Section -->
+
+          <!-- Start Row 3 Solider Information Section -->
+          <div class="row row_holder">
+            <!-- <div class="col input_area">
                 <div class="form-floating">
                   <input type="tel" class="form-control" id="phone" placeholder="" value=""
                     onchange=handlePhoneNumber(this)>
                   <label for="phone">Phone Number</label>
                 </div>
-              </div>
-              <div class="col input_area">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="MOS" placeholder="" value="" onchange=handleMOS(this)>
-                  <label for="MOS">MOS:</label>
-                </div>
-              </div>
-              <div class="col input_area ">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="DODID" placeholder="" value="" onchange=handleDODID(this)>
-                  <label for="DODID:">DODID:</label>
-                </div>
+              </div> -->
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="rank" placeholder="" value="" onchange=handleRank(this)>
+                <label for="Rank">Rank:</label>
               </div>
             </div>
-            <!-- End Row 3 Solider Information Section -->
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="MOS" placeholder="" value="" onchange=handleMOS(this)>
+                <label for="MOS">MOS:</label>
+              </div>
+            </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="ASI" placeholder="" value="" onchange=handleASI(this)>
+                <label for="ASI:">ASI:</label>
+              </div>
+            </div>
 
-            <!-- Start Row 4 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col-7 input_area">
+          </div>
+          <!-- Start Row 3 Solider Information Section -->
+          <div class="row row_holder">
+            <!-- <div class="col input_area">
                 <div class="form-floating">
-                  <input type="tel" class="form-control" id="Email" placeholder="" value="" onchange=handleEmail(this)>
-                  <label for="Email">Email (that you check): </label>
+                  <input type="tel" class="form-control" id="phone" placeholder="" value=""
+                    onchange=handlePhoneNumber(this)>
+                  <label for="phone">Phone Number</label>
+                </div>
+              </div> -->
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="Arrival_Date" placeholder="" value=""
+                  pattern="\d{4}-\d{2}-\d{2}" onchange=handleBirthday(this)>
+                <label for="Arrival_Date">Date Of Birth:</label>
+              </div>
+            </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="PlaceOfBirth" placeholder="" value=""
+                  onchange=handlePlaceOfBirth(this)>
+                <label for="PlaceOfBirth">Place Of Birth:</label>
+              </div>
+            </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <select class="form-select" id="Gender" aria-label="Floating label select example"
+                  onchange=handleGender(this)>
+                  <option disabled selected></option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <label for="Gender">Gender</label>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Row 3 Solider Information Section -->
+
+          <!-- Start Row 4 Solider Information Section -->
+          <div class="row row_holder">
+            <div class="col-6 input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="HomeOfRecord" placeholder="" value=""
+                  onchange=handleHomeOfRecord(this)>
+                <label for="HomeOfRecord">(City & State) Home of Record:</label>
+              </div>
+            </div>
+            <div class="col-4 input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="HomeOfRecord" placeholder="" value=""
+                  onchange=handleETS(this)>
+                <label for="HomeOfRecord">ETS:</label>
+              </div>
+            </div>
+
+
+          </div>
+          <!-- End Row 4 Solider Information Section -->
+
+          <!-- Start Row 5 Solider Information Section -->
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="SecurityClearance" placeholder="" value=""
+                  onchange=handleSecurityClearance(this)>
+                <label for="SecurityClearance">Security Clearance:</label>
+              </div>
+            </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="BASD" placeholder="" value="" onchange=handleBASD(this)>
+                <label for="BASD">BASD:</label>
+              </div>
+            </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="DOR" placeholder="" value="" onchange=handleDOR(this)>
+                <label for="DOR">DOR:</label>
+              </div>
+            </div>
+          </div>
+          <div class="row row_holder">
+            <div class="col-6 input_area">
+              <div class="form-floating">
+                <select class="form-select" id="MaritalStatus" aria-label="Floating label select example"
+                  onchange=handleMaritalStatus(this)>
+                  <option disabled selected></option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Adult DEP">Adult DEP</option>
+                  <option value="Child DEP">Child DEP</option>
+                  <option value="EFMP">EFMP</option>
+                </select>
+                <label for="MaritalStatus">Marital Status:</label>
+              </div>
+
+            </div>
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="Arrival_Date" placeholder="" value=""
+                  pattern="\d{4}-\d{2}-\d{2}" onchange=handleArrival(this)>
+                <label for="Arrival_Date">Date Of Arrival:</label>
+              </div>
+            </div>
+            
+          </div>
+          
+
+          <br>
+
+          <h3 class="medical-center">Medical</h3>
+          <br>
+
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <select class="form-select" id="BloodType" aria-label="Floating label select example"
+                  onchange=handleBloodType(this)>
+                  <option disabled selected></option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+                <label for="BloodType">Blood Type:</label>
+              </div>
+            </div>
+
+            <div class="col input_area">
+              <div class="form-floating">
+                <select class="form-select" id="Glasses" aria-label="Floating label select example"
+                  onchange=handleGlasses(this)>
+                  <option disabled selected></option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <label for="Glasses">Do you wear glasses:</label>
+              </div>
+            </div>
+
+            <div class="col input_area">
+              <div class="form-floating">
+                <select class="form-select" id="Inserts" aria-label="Floating label select example"
+                  onchange=handleInserts(this)>
+                  <option disabled selected></option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <label for="Inserts">Inserts On Hand:</label>
+              </div>
+            </div>
+          </div>
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <select class="form-select" id="ColorBlind" aria-label="Floating label select example"
+                  onchange=handleColorBlind(this)>
+                  <option disabled selected></option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <label for="ColorBlind">Are you color blind? </label>
+              </div>
+            </div>
+
+            <div class="col input_area">
+              <div class="form-floating">
+                <select class="form-select" id="COVID" aria-label="Floating label select example"
+                  onchange=handleCOVID(this)>
+                  <option disabled selected></option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <label for="COVID">Have you taken the COVID vaccine? </label>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <br>
+          <br>
+        </section>
+      </div>
+      <!-- End Solider Information Section -->
+      <div class="col">
+        <section class="card section_styles">
+          <br>
+          <br>
+          <div class="title_holder">
+            <h2>
+              Individual Contact Information
+            </h2>
+          </div>
+
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="phone" placeholder="" value=""
+                  onchange=handlePhoneNumber(this)>
+                <label for="phone">Phone Number:</label>
+              </div>
+            </div>
+
+            <div class="col-7 input_area">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="PersonalEmail" placeholder="" value=""
+                  onchange=handlePersonalEmail(this)>
+                <label for="PersonalEmail">Personal Email:</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row_holder">
+            <div class="col-7 input_area">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="ArmyEmail" placeholder="" value=""
+                  onchange=handleArmyEmail(this)>
+                <label for="PersonalEmail">Army-issued Email (.army.mil):</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="StreetAddress" placeholder="" value=""
+                  onchange=handleStreet(this)>
+                <label for="StreetAddress">Street Address:</label>
+              </div>
+            </div>
+
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="StreetAddresstwo" placeholder="" value=""
+                  onchange=handleStreetTwo(this)>
+                <label for="StreetAddressTwo">Address Line 2:</label>
+              </div>
+            </div>
+
+            <div class="row row_holder">
+              <div class="col input_area">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="City" placeholder="" value="" onchange=handleCity(this)>
+                  <label for="City">City:</label>
                 </div>
               </div>
               <div class="col input_area">
                 <div class="form-floating">
-                  <input type="text" class="form-control" id="FullSSN" placeholder=""
-                    pattern="^(\d{3}-|\(\d{3}\)\s)\d{2}-\d{4}$" maxlength="9" value="" onchange=handleFullSSN(this)>
-                  <label for="FullSSN">Full SSN:</label>
+                  <input type="text" class="form-control" id="State" placeholder="" value="" onchange=handleState(this)>
+                  <label for="State">State:</label>
+                </div>
+              </div>
+              <div class="col input_area">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="Zip" placeholder="" value="" onchange=handleZip(this)>
+                  <label for="City">Zip Cpde:</label>
                 </div>
               </div>
 
             </div>
-            <!-- End Row 4 Solider Information Section -->
+          </div>
 
-            <!-- Start Row 5 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col input_area">
-                <div class="form-floating">
-                  <select class="form-select" id="Gender" aria-label="Floating label select example"
-                    onchange=handleGender(this)>
-                    <option disabled selected></option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                  <label for="Gender">Gender</label>
-                </div>
-              </div>
-              <div class="col input_area">
-                <div class="form-floating">
-                  <select class="form-select" id="POV" aria-label="Floating label select example"
-                    onchange=handlePOV(this)>
-                    <option disabled selected></option>
-                    <option value="Y">Y</option>
-                    <option value="N">N</option>
-                  </select>
-                  <label for="POV">POV</label>
-                </div>
-              </div>
-              <div class="col input_area">
-                <div class="form-floating">
-                  <select class="form-select" id="MaritalStatus" aria-label="Floating label select example"
-                    onchange=handleMaritalStatus(this)>
-                    <option disabled selected></option>
-                    <option value="Married">Married</option>
-                    <option value="Single">Single</option>
-                  </select>
-                  <label for="MaritalStatus">Marital Status</label>
-                </div>
+        </section>
+      </div>
+
+      <!-- Emergency Contact Section -->
+      <div class="col">
+        <section class="card section_styles">
+          <br>
+          <br>
+          <div class="title_holder">
+            <h2>
+              Emergency Point of Contact Information
+            </h2>
+          </div>
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="txt" class="form-control" id="EmergencyName" placeholder="" value=""
+                  onchange=handleEmergencyName(this)>
+                <label for="EmergencyName">Name:</label>
               </div>
             </div>
-            <!-- End Row 5 Solider Information Section -->
-            <!-- Start Row 6 Solider Information Section -->
+
+            <div class="col-6 input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="EmergencyRelation" placeholder="" value=""
+                  onchange=handleEmergencyRelation(this)>
+                <label for="EmergencyRelation">Relation:</label>
+              </div>
+            </div>
+          </div>          
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="EmergencyPhone" placeholder="" value=""
+                  onchange=handleEmergencyPhone(this)>
+                <label for="EmergencyPhone">Phone Number</label>
+              </div>
+            </div>
+
+            <div class="col-7 input_area">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="EmergencyEmail" placeholder="" value=""
+                  onchange=handleEmergencyEmail(this)>
+                <label for="EmergencyEmail">Email:</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row_holder">
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="StreetAddress" placeholder="" value=""
+                  onchange=handleEmergencyStreetOne(this)>
+                <label for="StreetAddress">Street Address:</label>
+              </div>
+            </div>
+
+            <div class="col input_area">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="StreetAddress" placeholder="" value=""
+                  onchange=handleEmergencyStreetTwo(this)>
+                <label for="StreetAddress">Address Line 2 :</label>
+              </div>
+            </div>
+
             <div class="row row_holder">
-              <div class="col-12 input_area">
+              <div class="col input_area">
                 <div class="form-floating">
-                  <select class="form-select" id="Cvid" aria-label="Floating label select example"
-                    onchange=handleCOVIDVaccinationStatus(this)>
-                    <option disabled selected></option>
-                    <option value="Fully">Fully Vaccinated</option>
-                    <option value="Partially">Partially Vaccinated</option>
-                    <option value="Unvaccinated">Unvaccinated</option>
-                  </select>
-                  <label for="POV">COVID Vaccination Status (Select One):</label>
+                  <input type="text" class="form-control" id="City" placeholder="" value=""
+                    onchange=handleEmergencyCity(this)>
+                  <label for="City">City:</label>
+                </div>
+              </div>
+              <div class="col input_area">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="State" placeholder="" value=""
+                    onchange=handleEmergencyState(this)>
+                  <label for="State">State:</label>
+                </div>
+
+              </div>
+              <div class="col input_area">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="Zip" placeholder="" value=""
+                    onchange=handleEmergencyZip(this)>
+                  <label for="City">Zip Cpde:</label>
                 </div>
               </div>
 
             </div>
-            <!-- End Row 6 Solider Information Section -->
-            <!-- Start Row 6 Solider Information Section -->
-            <div class="row row_holder">
-              <div class="col-12 input_area special_input">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="Address" placeholder="" value=""
-                    onchange=handleAddress(this)>
-                  <label for="Email">Room Number/Address (Location where you are staying while assigned to 18th
-                    RC):</label>
-                </div>
-              </div>
-            </div>
-            <!-- End Row 6 Solider Information Section -->
-          </section>
+          </div>
+
+        </section>
+      </div>
+
+      <div class="btnHolder-Bio">
+        <button type="submit" class="btn btn-primary">
+          Next Page
+        </button>
+      </div>
+    </form>
+
+    <!-- End of BioSheet page -->
+
+
+    <!-- Start of MEMORANDUM FOR RECORD page -->
+    <form class="Hide-Form" id="Memo-Form">
+      <div class="">
+        <div class="header">
+          <div id="img_holder">
+            <img src="department_def.png" id="logo" alt="">
+          </div>
+          <div id='title_holder'>
+            <h1>Department of the Army</h1>
+            <p></p>
+          </div>
+          <div class="exitArea">
+            <button type="button" onclick=exitForm() class="btn btn-danger exitButton">Exit Form</button>
+          </div>
         </div>
+        <h5 class="subtitle">XVIII AIRBORNE CORPS REPLACEMENT COMPANY </h5>
 
-        <!-- Emergency Contact Section -->
+        <p class="p">
+          AFZA-HHB-RC
+          <br>
+          MEMORANDUM FOR RECORD
+          <br>
+          In-Processing Soldier Counseling
+        </p>
+        <br>
+        <br>
+        <br>
+        <p>
+          1. This memorandum serves as your counseling for the XVIII Airborne Corps Replacement Company (18th RC)
+          policies
+          that will remain in effect for the duration of your time in-processing. These policies apply on and off post
+          during duty and non-duty hours and are punishable under UCMJ or administrative action. The unabridged policy
+          letters are available to read in the 18th RC
+          Headquarters lobby or by contacting the Staff Duty Desk at 910-396-4250.
+        </p>
+        <p>
+          2. Open Door Policy. All Soldiers have the right to see the Commander. You should work through NCO support
+          channels before requesting to see the Commander. For urgent issues, contact the Company First Sergeant or
+          Operations Sergeant to schedule an appointment. For routine issues, you may schedule through the NCO
+          support channels.
+        </p>
+        <p>
+          3. Leave and Pass. You have a 125 mile travel radius from Fort Bragg. The Commander will only approve leave or
+          passes by exception, including emergency leave and for extenuating circumstances. All other leave, passes,
+          PTDY,
+          and TDY must be submitted through the gaining
+          unit after shipping.
+        </p>
+        <p>
+          4. Inspector General (IG). You have the right to contact IG at 910-396-5106. Before contacting IG, please
+          attempt to address the issue with the chain of command.
+        </p>
+        <p>
+          5. Suicide. If you suspect suicidal ideations, ask the Soldier if they feel like killing themselves. Act
+          immediately, ask others for help, alert the 18th RC Staff Duty Desk, and stay with the
+          Soldier
+        </p>
+        <p>
+          6. SHARP. You are prohibited from engaging in sexual harassment or assault. Restricted reports can be made
+          through the SARC, Victim Advocate, Chaplain or healthcare provider.
+          Unrestricted reports can be filed through the chain of command or law enforcement.
+        </p>
+        <p>
+          7. Equal Opportunity. You are prohibited from discriminating against others based on demographic information.
+          The chain of command is the primary and preferred channel for resolving EO issues. Complaints may also be made
+          to an EO Advisor or support agencies, including the Inspector General, Provost Marshal, Chaplain, Staff Judge
+          Advocate, or medical
+          agencies.
+        </p>
+        <p>
+          8. Hazing and Bullying. You are prohibited from hazing or bullying others. You may report hazing or bullying
+          to
+          the chain of command, IG, or CG’s hotline at 910-396-2677.
+        </p>
+        <p>
+          9. Alcohol and Cadre Relations. Barracks Soldiers are prohibited from storing or consuming alcohol in the
+          footprint, including the barracks, parking lot, headquarters, etc. Illegal drug and alcohol use is pursuant to
+          UCMJ. There will be no fraternizing between Cadre and in-processing
+          Soldiers regardless of rank.
+        </p>
+        <p>
+          10. Off-Limits Establishments. You are prohibited from the published list of Fort Bragg off-limits
+          establishments.
+        </p>
+        <p>
+          11. Uniform. You must conform to AR 670-1. The duty uniform is OCPs with approved face covering. Barracks
+          Soldiers will remain in uniform until released for the day.
+        </p>
+        <p>
+          12. Barracks. All single E-5 and below will be assigned a barracks room.
+        <ol type='A'>
+          <li>
+            &ensp; Responsibilities. You will be issued linens, a pillow, and a room key. You will receive a counseling
+            from the 18th RC First Sergeant if you lose or damage your room key.
+          </li>
+          <li>
+            &ensp; Room Cleanliness. Common areas will be clean at all times. Sweep and mop your room, empty the trash,
+            make your bed, and clean the bathroom daily. Secure Army-issued gear in your assigned room. Cadre will
+            conduct
+            room inspections when assigning rooms, prior to shipping, and unannounced as needed. Your room must pass
+            final
+            inspection before you are
+            approved to ship to your gaining unit.
+          </li>
+          <li>
+            &ensp; Restrictions. Male Soldiers are not allowed in the female barracks. Female Soldiers are not allowed
+            in
+            the male barracks. The 3rd Brigade, 82nd Airborne Division barracks are strictly prohibited. Tobacco use is
+            prohibited in the barracks, including cigarettes, cigars, chewing tobacco, vaping, etc. No flammable items
+            will be stored in the barracks, including candles,
+            torches, burners, incense, hot plates, etc. Do not touch fire alarms or smoke detectors.
+          </li>
+          <li>
+            &ensp; Privately Owned Weapons (POWs). Barracks Soldiers will declare all POWs and turn them over to 18th RC
+            Cadre for storage. You will have 5 business days to register POWs with
+            the Fort Bragg Visitor Center outside All American Gate.
+          </li>
+        </ol>
+        </p>
+
         <div class="col">
           <section class="card section_styles">
             <div class="title_holder">
               <h2>
-                Emergency Contact Information
-              </h2>
-            </div>
-            <div class="row row_space">
-              <div class="row row_outline">
-                <div class="col-12">
-                  <label class="visually-hidden" for="EmergencyName">s</label>
-                  <div class="input-group">
-                    <div class="input-group-text">Name</div>
-                    <input type="text" class="form-control" required id="EmergencyName" placeholder="Type..."
-                      onchange="handleEmergencyName(this)">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row row_space">
-              <div class="row row_outline">
-                <div class="col-12">
-                  <label class="visually-hidden" for="EmergencyName">s</label>
-                  <div class="input-group">
-                    <div class="input-group-text">Relation to Soldier</div>
-                    <input type="text" class="form-control" id="EmergencyRelation" placeholder="Type..."
-                      onchange="handleEmergencyRelation(this)">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row row_space">
-              <div class="row row_outline">
-                <div class="col-12">
-                  <label class="visually-hidden" for="EmergencyName">s</label>
-                  <div class="input-group">
-                    <div class="input-group-text">Address</div>
-                    <input type="text" class="form-control" id="EmergencyAddress" placeholder="Type..."
-                      onchange="handleEmergencyAddress(this)">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row row_space">
-              <div class="row row_outline">
-                <div class="col-12">
-                  <label class="visually-hidden" for="EmergencyName">s</label>
-                  <div class="input-group">
-                    <div class="input-group-text">Phone Number</div>
-                    <input type="text" class="form-control" id="EmergencyPhone" placeholder="Type..."
-                      onchange="handleEmergencyPhone(this)">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-        <!-- Quarantine POC Information Section -->
-        <div class="col">
-          <section class="card section_styles">
-            <div class="title_holder">
-              <h2>
-                Quarantine POC Information
+                Confirmation
               </h2>
             </div>
             <div class="row row_space">
@@ -295,7 +632,9 @@
                   <div class="input-group">
                     <div class="input-group-text">Name</div>
                     <input type="text" class="form-control" id="EmergencyQuarantineName" placeholder="Type..."
-                      onchange="handleQuarantineName(this)">
+                      onchange="handleMemoName(this)"
+                      required
+                      >
                   </div>
                 </div>
               </div>
@@ -307,615 +646,418 @@
                   <div class="input-group">
                     <div class="input-group-text">E-Signature</div>
                     <input type="text" class="form-control signature" id="EmergencyRelation" placeholder="Type..."
-                      onchange="handleQuarantineSignature(this)">
+                      onchange="handleMemoSignature(this)"
+                      required
+                      >
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row row_space">
-              <div class="row row_outline">
-                <div class="col-12">
-                  <label class="visually-hidden" for="EmergencyName">s</label>
-                  <div class="input-group">
-                    <div class="input-group-text">Phone Number</div>
-                    <input type="text" class="form-control" id="EmergencyAddress" placeholder="Type..."
-                      onchange="handleQuarantinePhone(this)">
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </section>
         </div>
 
-
-        <!-- End of BioSheet page -->
-      </div>
-      <!-- Start of MEMORANDUM FOR RECORD page -->
-
-      <div class="tab">
-        <div class="header">
-          <div id="img_holder">
-            <img src="department_def.png" id="logo" alt="">
-          </div>
-          <div id='title_holder'>
-            <h1>Department of the Army</h1>
-            <p></p>
-          </div>
-          <div class="exitArea">
-            <button 
-            type="button" onclick=exitForm()
-            class="btn btn-danger exitButton">Exit Form</button>
-          </div>
+        <div class="btnHolder-Memo">
+          <button type="button" class="btn btn-warning"
+          onclick="HandleReturnToBio(this)">
+            Previous Page
+          </button>    
+          
+          <p>
+            Page 2 of 3
+          </p>
+          
+          <button type="submit" class="btn btn-primary">
+            Next Page
+          </button>
         </div>
-        <h5 class="subtitle">XVIII AIRBORNE CORPS REPLACEMENT COMPANY </h5>
-        
-          <p class="p">
-            AFZA-HHB-RC
-            <br>
-            MEMORANDUM FOR RECORD
-            <br>
-            In-Processing Soldier Counseling
-          </p>
-          <br>
-          <br>
-          <br>
-          <p>
-            1. This memorandum serves as your counseling for the XVIII Airborne Corps Replacement Company (18th RC) policies
-            that will remain in effect for the duration of your time in-processing. These policies apply on and off post
-            during duty and non-duty hours and are punishable under UCMJ or administrative action. The unabridged policy
-            letters are available to read in the 18th RC
-            Headquarters lobby or by contacting the Staff Duty Desk at 910-396-4250.
-          </p>
-          <p>
-            2. Open Door Policy. All Soldiers have the right to see the Commander. You should work through NCO support
-            channels before requesting to see the Commander. For urgent issues, contact the Company First Sergeant or
-            Operations Sergeant to schedule an appointment. For routine issues, you may schedule through the NCO
-            support channels.
-            <strong> See Policy Letter #3. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            3. Leave and Pass. You have a 125 mile travel radius from Fort Bragg. The Commander will only approve leave or
-            passes by exception, including emergency leave and for extenuating circumstances. All other leave, passes, PTDY,
-            and TDY must be submitted through the gaining
-            unit after shipping.
-            <strong> See Policy Letter #5. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            4. Inspector General (IG). You have the right to contact IG at 910-396-5106. Before contacting IG, please
-            attempt to address the issue with the chain of command.
-            <strong> See Policy Letter #6. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            5. Suicide. If you suspect suicidal ideations, ask the Soldier if they feel like killing themselves. Act
-            immediately, ask others for help, alert the 18th RC Staff Duty Desk, and stay with the
-            Soldier
-            <strong> See Policy Letter #7. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            6. SHARP. You are prohibited from engaging in sexual harassment or assault. Restricted reports can be made
-            through the SARC, Victim Advocate, Chaplain or healthcare provider.
-            Unrestricted reports can be filed through the chain of command or law enforcement.
-            <strong> See Policy Letter #8. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            7. Equal Opportunity. You are prohibited from discriminating against others based on demographic information.
-            The chain of command is the primary and preferred channel for resolving EO issues. Complaints may also be made
-            to an EO Advisor or support agencies, including the Inspector General, Provost Marshal, Chaplain, Staff Judge
-            Advocate, or medical
-            agencies.
-            <strong> See Policy Letter #9. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            8. Hazing and Bullying. You are prohibited from hazing or bullying others. You may report hazing or bullying to
-            the chain of command, IG, or CG’s hotline at 910-396-2677.
-            <strong> See Policy Letter #10. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            9. Alcohol and Cadre Relations. Barracks Soldiers are prohibited from storing or consuming alcohol in the
-            footprint, including the barracks, parking lot, headquarters, etc. Illegal drug and alcohol use is pursuant to
-            UCMJ. There will be no fraternizing between Cadre and in-processing
-            Soldiers regardless of rank.
-            <strong> See Policy Letter #11. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            10. Off-Limits Establishments. You are prohibited from the published list of Fort Bragg off-limits
-            establishments.
-            <strong> See FBNC Off-Limits Establishments. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            11. Uniform. You must conform to AR 670-1. The duty uniform is OCPs with approved face covering. Barracks
-            Soldiers will remain in uniform until released for the day.
-            <strong> See FBNC Off-Limits Establishments. Initials:</strong>
-            <input type="text">
-          </p>
-          <p>
-            12. Barracks. All single E-5 and below will be assigned a barracks room.
-          <ol type='A'>
-            <li>
-              &ensp; Responsibilities. You will be issued linens, a pillow, and a room key. You will receive a counseling
-              from the 18th RC First Sergeant if you lose or damage your room key.
-              <strong>Initials:</strong>
-              <input type="text">
-            </li>
-            <li>
-              &ensp; Room Cleanliness. Common areas will be clean at all times. Sweep and mop your room, empty the trash,
-              make your bed, and clean the bathroom daily. Secure Army-issued gear in your assigned room. Cadre will conduct
-              room inspections when assigning rooms, prior to shipping, and unannounced as needed. Your room must pass final
-              inspection before you are
-              approved to ship to your gaining unit.
-              <strong>Initials:</strong>
-              <input type="text">
-            </li>
-            <li>
-              &ensp; Restrictions. Male Soldiers are not allowed in the female barracks. Female Soldiers are not allowed in
-              the male barracks. The 3rd Brigade, 82nd Airborne Division barracks are strictly prohibited. Tobacco use is
-              prohibited in the barracks, including cigarettes, cigars, chewing tobacco, vaping, etc. No flammable items
-              will be stored in the barracks, including candles,
-              torches, burners, incense, hot plates, etc. Do not touch fire alarms or smoke detectors.
-              <strong>Initials:</strong>
-              <input type="text">
-            </li>
-            <li>
-              &ensp; Privately Owned Weapons (POWs). Barracks Soldiers will declare all POWs and turn them over to 18th RC
-              Cadre for storage. You will have 5 business days to register POWs with
-              the Fort Bragg Visitor Center outside All American Gate.
-              <strong>See Policy Letter #12. Initials:</strong>
-              <input type="text">
-            </li>
-          </ol>
-          </p>
-    
-          <div class="col">
-            <section class="card section_styles">
-              <div class="title_holder">
-                <h2>
-                  Confirmation
-                </h2>
-              </div>
-              <div class="row row_space">
-                <div class="row row_outline">
-                  <div class="col-12">
-                    <label class="visually-hidden" for="EmergencyName">s</label>
-                    <div class="input-group">
-                      <div class="input-group-text">Name</div>
-                      <input type="text" class="form-control" id="EmergencyQuarantineName" placeholder="Type..."
-                        onchange="handleQuarantineName(this)">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row row_space">
-                <div class="row row_outline">
-                  <div class="col-12">
-                    <label class="visually-hidden" for="EmergencyName">s</label>
-                    <div class="input-group">
-                      <div class="input-group-text">E-Signature</div>
-                      <input type="text" class="form-control signature" id="EmergencyRelation" placeholder="Type..."
-                        onchange="handleQuarantineSignature(this)">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row row_space">
-                <div class="row row_outline">
-                  <div class="col-12">
-                    <label class="visually-hidden" for="EmergencyName">s</label>
-                    <div class="input-group">
-                      <div class="input-group-text">Rank</div>
-                      <input type="text" class="form-control" id="EmergencyAddress" placeholder="Type..."
-                        onchange="handleCounselingRank(this)">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-    
-    
-    
-        </div>
-
-      <!-- End of MEMORANDUM FOR RECORD page -->
-      
-      <!-- Start of BH Stigma Questionnaire page -->
-
-      <div class="tab">
-        <div class="header">
-          <div id="img_holder">
-            <img src="department_def.png" id="logo" alt="">
-          </div>
-          <div id='title_holder'>
-            <h1> BH Stigma Questionnaire</h1>
-            <p></p>
-            <p>
-             
-            </p>
-          </div>
-
-          <div class="exitArea">
-            <button 
-            type="button" onclick=exitForm()
-            class="btn btn-danger exitButton">Exit Form</button>
-          </div>
-        </div>
-        <h4 class="subtitle">XVIII AIRBORNE CORPS REPLACEMENT COMPANY (PROVISIONAL)</h4>
-
-
-        <p class="p">
-          <br>
-          <strong>Instructions:</strong> Read each question. Based on your thoughts and experiences, check each block as
-          you believe to be true.
-        </p>
-        <br>
-        <br>
-        <div class="Questions">
-  
-          <div class="card">
-            <div class="card-header">
-              1. &ensp; Select total number years of military service:
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="0-3" name="Q1" value="0-3">
-                <label for="0-3">0-3 yrs</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="4-6" name="Q1" value="4-6">
-                <label for="4-6">4-6 yrs</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="7-10" name="Q1" value="7-10">
-                <label for="7-10">7-10 yrs</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="11-15" name="Q1" value="11-15">
-                <label for="11-15">11-15 yrs</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="16-19" name="Q1" value="16-19">
-                <label for="16-19">16-19 yrs</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="20" name="Q1" value="20+">
-                <label for="20">20 or more yrs</label>
-              </div>
-            </div>
-          </div>
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              2. &ensp; Reaching out for behavioral health services:
-            </div>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_One" name="Q_Two">
-              <span class="checkmark">is a sign of weakness</span>
-            </label>
-  
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Two" name="Q_Two">
-              <span class="checkmark">means I am a failure</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Three" name="Q_Two">
-              <span class="checkmark">adds unwanted attention or judgment from my leaders and/or my peers</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Four" name="Q_Two">
-              <span class="checkmark">will interfere and negatively impact my career advancement and/or school
-                opportunities</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Five" name="Q_Two">
-              <span class="checkmark">I don’t believe there are any negative drawbacks for seeking BH services</span>
-            </label>
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Six" name="Q_Two">
-              <span class="checkmark">I don’t know what Behavioral Health is</span>
-            </label>
-          </div>
-  
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              3. &ensp; Seeking out services with Behavioral health will:
-            </div>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_One" name="Q_Three">
-              <span class="checkmark">lower my self-confidence and lower my self-reliance (my ability to solve my problems on my own)</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Two" name="Q_Three">
-              <span class="checkmark">lower my team’s trust in my ability to lead or perform my job</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Three" name="Q_Three">
-              <span class="checkmark">improve my self-confidence and sense of personal resilience</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Four" name="Q_Three">
-              <span class="checkmark">increase my success with my team</span>
-            </label>
-  
-          </div>
-  
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              4. &ensp; Seeking out behavioral health services results in:
-            </div>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_One" name="Q_Four">
-              <span class="checkmark">hospitalization</span>
-            </label>
-  
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Two" name="Q_Four">
-              <span class="checkmark">my weapon being taken away</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Three" name="Q_Four">
-              <span class="checkmark">becoming non-deployable</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Four" name="Q_Four">
-              <span class="checkmark">losing my security clearance</span>
-            </label>
-  
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Five" name="Q_Four">
-              <span class="checkmark">medical discharge from the Army</span>
-            </label>
-            <label class="answerHolder">
-              <input class='otherInputs' type="checkbox" id="Two_Six" name="Q_Four">
-              <span class="checkmark">negative consequences that may occur only when my situation or stressors get so far out of control that legal action is being taken and/or my command is already involved</span>
-            </label>
-          </div>
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              5. &ensp; I would be given less responsibility, if my chain of command knew I was seeing a mental health provider.
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="SA_Five" name="Q_Five" value="SA">
-                <label for="SA_Five">Strongly Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="A_Five" name="Q_Five" value="A">
-                <label for="A_Five">Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="N_Five" name="Q_Five" value="N">
-                <label for="N_Five">Neutral</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="D_Five" name="Q_Five" value="D">
-                <label for="D_Five">Disagree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="SD_Five" name="Q_Five" value="SD">
-                <label for="SD_Five">Strongly Disagree</label>
-              </div>
-            </div>
-          </div>
-  
-  
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              6. &ensp; My self-confidence would NOT be threatened if I sought professional help.
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="SA_Six" name="Q_Six" value="SA">
-                <label for="SA_Six">Strongly Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="A_Six" name="Q_Six" value="A">
-                <label for="A_Six">Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="N_Six" name="Q_Six" value="N">
-                <label for="N_Six">Neutral</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="D_Six" name="Q_Six" value="D">
-                <label for="D_Six">Disagree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="SD_Six" name="Q_Six" value="SD">
-                <label for="SD_Six">Strongly Disagree</label>
-              </div>
-            </div>
-          </div>
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              7. &ensp; I don’t believe I’ll see any improvements or changes after utilizing BH services.
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="SA_Seven" name="Q_Seven" value="SA">
-                <label for="SA_Seven">Strongly Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="A_Seven" name="Q_Seven" value="A">
-                <label for="A_Seven">Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="N_Seven" name="Q_Seven" value="N">
-                <label for="N_Seven">Neutral</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="D_Seven" name="Q_Seven" value="D">
-                <label for="D_Seven">Disagree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="SD_Seven" name="Q_Seven" value="SD">
-                <label for="SD_Seven">Strongly Disagree</label>
-              </div>
-            </div>
-          </div>
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              8. &ensp; I am afraid that my chain of command would find out what I told a mental health provider.
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="SA_Eight" name="Q_Eight" value="SA">
-                <label for="SA_Eight">Strongly Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="A_Eight" name="Q_Eight" value="A">
-                <label for="A_Eight">Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="N_Eight" name="Q_Eight" value="N">
-                <label for="N_Eight">Neutral</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="D_Eight" name="Q_Eight" value="D">
-                <label for="D_Eight">Disagree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="SD_Eight" name="Q_Eight" value="SD">
-                <label for="SD_Eight">Strongly Disagree</label>
-              </div>
-            </div>
-          </div>
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              9. &ensp; If my chain of command discovered I was seeing a mental health provider, I would NOT lose their respect.
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="SA_Nine" name="Q_Nine" value="SA">
-                <label for="SA_Nine">Strongly Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="A_Nine" name="Q_Nine" value="A">
-                <label for="A_Nine">Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="N_Nine" name="Q_Nine" value="N">
-                <label for="N_Nine">Neutral</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="D_Nine" name="Q_Nine" value="D">
-                <label for="D_Nine">Disagree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="SD_Nine" name="Q_Nine" value="SD">
-                <label for="SD_Nine">Strongly Disagree</label>
-              </div>
-            </div>
-          </div>
-  
-  
-          <div class="card specialCard">
-            <div class="card-header">
-              10. &ensp; I trust military mental health services.
-            </div>
-            <div class="col-12 input_area">
-              <div>
-                <input class="otherInputs" type="radio" id="SA_Ten" name="Q_Ten" value="SA">
-                <label for="SA_Ten">Strongly Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="A_Ten" name="Q_Ten" value="A">
-                <label for="A_Ten">Agree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="N_Ten" name="Q_Ten" value="N">
-                <label for="N_Ten">Neutral</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="D_Ten" name="Q_Ten" value="D">
-                <label for="D_Ten">Disagree</label>
-              </div>
-              <div>
-                <input class="otherInputs" type="radio" id="SD_Ten" name="Q_Ten" value="SD">
-                <label for="SD_Ten">Strongly Disagree</label>
-              </div>
-            </div>
-          </div>
-  
-  
-  
-  
-  
-        </div>
-  
-  
-      </div>
-
-      <!-- End of BH Stigma Questionnaire page -->
-
-      <div class="btnHolder">
-        <button 
-        type="button" 
-        class="btn btn-warning"  
-        id="prevBtn"
-        onclick="nextPrev(-1)"
-        >
-          Previous Page
-        </button>
-
-
-
-        <p class="p">
-          Page 1 of 3
-        </p>
-
-
-
-        <button 
-        type="button" 
-        id="nextBtn"
-        class="btn btn-primary" 
-        onclick="nextPrev(1)"
-        
-        >
-          Next Page
-        </button>
-      </div>
- 
     </form>
   </div>
-  <div class="footer">
-    Optional Footer Goes Here
+
+
+  <!-- End of MEMORANDUM FOR RECORD page -->
+
+  <!-- Start of BH Stigma Questionnaire page -->
+  <form class="Hide-Form" id="BH-Form">
+
+
+    <div class="">
+      <div class="header">
+        <div id="img_holder">
+          <img src="department_def.png" id="logo" alt="">
+        </div>
+        <div id='title_holder'>
+          <h1>BH Stigma Questionnaire</h1>
+          <p></p>
+          <p>
+
+          </p>
+        </div>
+
+        <div class="exitArea">
+          <button type="button" onclick=exitForm() class="btn btn-danger exitButton">Exit Form</button>
+        </div>
+      </div>
+      <h4 class="subtitle">XVIII AIRBORNE CORPS REPLACEMENT COMPANY (PROVISIONAL)</h4>
+
+
+      <p class="p">
+        <br>
+        <strong>Instructions:</strong> Read each question. Based on your thoughts and experiences, check each block as
+        you believe to be true.
+      </p>
+      <br>
+      <br>
+      <div class="Questions">
+
+        <div class="card">
+          <div class="card-header">
+            1. &ensp; Select total number years of military service:
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="0-3" name="Q1" value="0-3" required>
+              <label for="0-3">0-3 yrs</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="4-6" name="Q1" value="4-6">
+              <label for="4-6">4-6 yrs</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="7-10" name="Q1" value="7-10">
+              <label for="7-10">7-10 yrs</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="11-15" name="Q1" value="11-15">
+              <label for="11-15">11-15 yrs</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="16-19" name="Q1" value="16-19">
+              <label for="16-19">16-19 yrs</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="20" name="Q1" value="20+">
+              <label for="20">20 or more yrs</label>
+            </div>
+          </div>
+        </div>
+        
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            2. &ensp; Reaching out for behavioral health services:
+          </div>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionTwo' type="checkbox" id="Two_One" name="Q_Two">
+            <span class="checkmark">is a sign of weakness</span>
+          </label>
+
+
+          <label class="answerHolder">
+            <input class='otherInputs questionTwo' type="checkbox" id="Two_Two" name="Q_Two">
+            <span class="checkmark">means I am a failure</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionTwo' type="checkbox" id="Two_Three" name="Q_Two">
+            <span class="checkmark">adds unwanted attention or judgment from my leaders and/or my peers</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionTwo' type="checkbox" id="Two_Four" name="Q_Two">
+            <span class="checkmark">will interfere and negatively impact my career advancement and/or school
+              opportunities</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionTwo' type="checkbox" id="Two_Five" name="Q_Two">
+            <span class="checkmark">I don’t believe there are any negative drawbacks for seeking BH services</span>
+          </label>
+          <label class="answerHolder">
+            <input class='otherInputs questionTwo' type="checkbox" id="Two_Six" name="Q_Two">
+            <span class="checkmark">I don’t know what Behavioral Health is</span>
+          </label>
+        </div>
+
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            3. &ensp; Seeking out services with Behavioral health will:
+          </div>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionThree' type="checkbox" id="Two_One" name="Q_Three">
+            <span class="checkmark">lower my self-confidence and lower my self-reliance (my ability to solve my
+              problems
+              on my own)</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionThree' type="checkbox" id="Two_Two" name="Q_Three">
+            <span class="checkmark">lower my team’s trust in my ability to lead or perform my job</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionThree' type="checkbox" id="Two_Three" name="Q_Three">
+            <span class="checkmark">improve my self-confidence and sense of personal resilience</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionThree' type="checkbox" id="Two_Four" name="Q_Three">
+            <span class="checkmark">increase my success with my team</span>
+          </label>
+
+        </div>
+
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            4. &ensp; Seeking out behavioral health services results in:
+          </div>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionFour' type="checkbox" id="Two_One" name="Q_Four">
+            <span class="checkmark">hospitalization</span>
+          </label>
+
+
+          <label class="answerHolder">
+            <input class='otherInputs questionFour' type="checkbox" id="Two_Two" name="Q_Four">
+            <span class="checkmark">my weapon being taken away</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionFour' type="checkbox" id="Two_Three" name="Q_Four">
+            <span class="checkmark">becoming non-deployable</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionFour' type="checkbox" id="Two_Four" name="Q_Four">
+            <span class="checkmark">losing my security clearance</span>
+          </label>
+
+          <label class="answerHolder">
+            <input class='otherInputs questionFour' type="checkbox" id="Two_Five" name="Q_Four">
+            <span class="checkmark">medical discharge from the Army</span>
+          </label>
+          <label class="answerHolder">
+            <input class='otherInputs questionFour' type="checkbox" id="Two_Six" name="Q_Four">
+            <span class="checkmark">negative consequences that may occur only when my situation or stressors get so
+              far
+              out of control that legal action is being taken and/or my command is already involved</span>
+          </label>
+        </div>
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            5. &ensp; I would be given less responsibility, if my chain of command knew I was seeing a mental health
+            provider.
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="SA_Five" name="Q_Five" value="SA" required>
+              <label for="SA_Five">Strongly Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="A_Five" name="Q_Five" value="A">
+              <label for="A_Five">Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="N_Five" name="Q_Five" value="N">
+              <label for="N_Five">Neutral</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="D_Five" name="Q_Five" value="D">
+              <label for="D_Five">Disagree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="SD_Five" name="Q_Five" value="SD">
+              <label for="SD_Five">Strongly Disagree</label>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            6. &ensp; My self-confidence would NOT be threatened if I sought professional help.
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="SA_Six" name="Q_Six" value="SA" required>
+              <label for="SA_Six">Strongly Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="A_Six" name="Q_Six" value="A">
+              <label for="A_Six">Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="N_Six" name="Q_Six" value="N">
+              <label for="N_Six">Neutral</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="D_Six" name="Q_Six" value="D">
+              <label for="D_Six">Disagree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="SD_Six" name="Q_Six" value="SD">
+              <label for="SD_Six">Strongly Disagree</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            7. &ensp; I don’t believe I’ll see any improvements or changes after utilizing BH services.
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="SA_Seven" name="Q_Seven" value="SA" required>
+              <label for="SA_Seven">Strongly Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="A_Seven" name="Q_Seven" value="A">
+              <label for="A_Seven">Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="N_Seven" name="Q_Seven" value="N">
+              <label for="N_Seven">Neutral</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="D_Seven" name="Q_Seven" value="D">
+              <label for="D_Seven">Disagree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="SD_Seven" name="Q_Seven" value="SD">
+              <label for="SD_Seven">Strongly Disagree</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            8. &ensp; I am afraid that my chain of command would find out what I told a mental health provider.
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="SA_Eight" name="Q_Eight" value="SA" required>
+              <label for="SA_Eight">Strongly Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="A_Eight" name="Q_Eight" value="A">
+              <label for="A_Eight">Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="N_Eight" name="Q_Eight" value="N">
+              <label for="N_Eight">Neutral</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="D_Eight" name="Q_Eight" value="D">
+              <label for="D_Eight">Disagree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="SD_Eight" name="Q_Eight" value="SD">
+              <label for="SD_Eight">Strongly Disagree</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card specialCard">
+          <div class="card-header">
+            9. &ensp; If my chain of command discovered I was seeing a mental health provider, I would NOT lose their
+            respect.
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="SA_Nine" name="Q_Nine" value="SA" required>
+              <label for="SA_Nine">Strongly Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="A_Nine" name="Q_Nine" value="A">
+              <label for="A_Nine">Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="N_Nine" name="Q_Nine" value="N">
+              <label for="N_Nine">Neutral</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="D_Nine" name="Q_Nine" value="D">
+              <label for="D_Nine">Disagree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="SD_Nine" name="Q_Nine" value="SD">
+              <label for="SD_Nine">Strongly Disagree</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card specialCard">
+          <div class="card-header">
+            10. &ensp; I trust military mental health services.
+          </div>
+          <div class="col-12 input_area">
+            <div>
+              <input class="otherInputs" type="radio" id="SA_Ten" name="Q_Ten" value="SA" required>
+              <label for="SA_Ten">Strongly Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="A_Ten" name="Q_Ten" value="A">
+              <label for="A_Ten">Agree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="N_Ten" name="Q_Ten" value="N">
+              <label for="N_Ten">Neutral</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="D_Ten" name="Q_Ten" value="D">
+              <label for="D_Ten">Disagree</label>
+            </div>
+            <div>
+              <input class="otherInputs" type="radio" id="SD_Ten" name="Q_Ten" value="SD">
+              <label for="SD_Ten">Strongly Disagree</label>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+    </div>
+    <div class="btnHolder-BH">
+      <button type="button" class="btn btn-warning"
+      onclick="HandleReturnToMemo(this)">
+        Previous Page
+      </button>    
+      
+      <p>
+        Page 3 of 3
+      </p>
+      
+      <button type="submit" class="btn btn-primary">
+        Submit Application
+      </button>
+    </div>
+  </form>
+
+  <!-- End of BH Stigma Questionnaire page -->
   </div>
+
+
+  <script src="script.js"></script>
 
 </body>
 

@@ -6,6 +6,9 @@
   text-align: center;
 
 }
+.medical-center{
+  text-align: center;
+}
 @media (min-width : 1000px ){
 
   
@@ -31,7 +34,7 @@
   align-items: center;
 }
 
-.tab{
+.Hide-Form{
   display: none;
 }
 form{
@@ -93,9 +96,8 @@ input{
 #form1{
   display: block;
 }
-.btnHolder{
-  display: flex;
-  justify-content: space-between;
+.btnHolder-Bio{
+float: right;
   padding: 10px;
 }
 
@@ -112,4 +114,16 @@ input{
 
 .specialCard{
   margin-top: 25px;
+}
+
+.btnHolder-Memo{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.btnHolder-BH{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+  padding: 10px;
 }
