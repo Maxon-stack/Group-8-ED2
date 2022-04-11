@@ -28,11 +28,22 @@ var gotData = {
 	},
 };
 
+const d = new Date();
+const getChangeNum = (conn, plt, back)=>{
+	const arr = [];
+	for (let i = 1; i < back + 1; i++) {
+		conn.query("SELECT COUNT(*) FROM " + plt + " WHERE arrival_date < " + + (d.getTime() - (86400 * (back + 1))).toString() + " AND arrival_date > " + (d.getTime() - (86400 * back)).toString(), function (err, res, fields){
+			if (err) throw err;
+			arr.push(res);
+		})
+	}
+}
+
 var conn = mysql.createConnection({
-	host: 'localhost:3306',
-	user: 'root',
-	password: 'password',
-	database: 'xviii_database'
+    host: 'localhost',
+    database: 'xviii_database',
+    user: 'root',
+    password: 'password',
 });
 if (conn)
 conn.connect(function(err){
@@ -62,69 +73,47 @@ conn.connect(function(err){
 		gotData.numSoldiers.pltseniorsize = res;
 	})
 
-	//	query for soldier data
-	/*conn.query("SELECT * FROM platoon_one", function (err, res, fields){
-		if (err) throw err;
-		gotData.soldiers.plt1data = fields
-	})
-	conn.query("SELECT * FROM platoon_two", function (err, res, fields){
-		if (err) throw err;
-		gotData.soldiers.plt2data = fields
-	})
-	conn.query("SELECT * FROM platoon_three", function (err, res, fields){
-		if (err) throw err;
-		gotData.soldiers.plt3data = fields
-	})
-	conn.query("SELECT * FROM platoon_four", function (err, res, fields){
-		if (err) throw err;
-		gotData.soldiers.plt4data = fields
-	})
-	conn.query("SELECT * FROM platoon_senior", function (err, res, fields){
-		if (err) throw err;
-		gotData.soldiers.pltseniordata = fields
-	})*/
-
 	//	query for form data
 	/*conn.query("SELECT * FROM forms", function (err, res, fields){
 		if (err) throw err;
 		gotData.forms = fields;
 	})
-	elementChanges.push['formsToday', fields.size()];
+	gotData.elementChanges.push['formsToday', fields.size()];
 	var formstoday = 0;
 	for (const value of gotData.forms) {
-		if (value.upload - nextTick() < 86400){
+		if (value.upload - d.getTime() < 86400){
 			formstoday++;
 		}
 	}
-	elementChanges.push['formsTodayChange', formstoday];*/
+	gotData.elementChanges.push['formsTodayChange', formstoday];*/
 
 	//	query for form data
 	//	form size
-	conn.query("SELECT COUNT(*) FROM forms", function (err, res, fields){
+	/*conn.query("SELECT COUNT(*) FROM forms", function (err, res, fields){
 		if (err) throw err;
 		gotData.formsSize = res;
 	})
 	//	forms recieved today
-	conn.query("SELECT COUNT(*) FROM forms WHERE upload < " + toString(nextTick() - 86400), function (err, res, fields){
+	conn.query("SELECT COUNT(*) FROM forms WHERE upload < " + (d.getTime() - 86400).toString(), function (err, res, fields){
 		if (err) throw err;
-		elementChanges.push['formsToday', res];
+		gotData.elementChanges.push['formsToday', res];
 	})
 	//	forms recieved changed from last day
-	conn.query("SELECT COUNT(*) FROM forms WHERE upload < " + toString(nextTick() - (86400 * 2)) + " AND upload > " + toString(nextTick() - 86400), function (err, res, fields){
+	conn.query("SELECT COUNT(*) FROM forms WHERE upload < " + (d.getTime() - (86400 * 2)).toString() + " AND upload > " + (d.getTime() - 86400).toString(), function (err, res, fields){
 		if (err) throw err;
-		elementChanges.push['formsTodayChange', elementChanges['formsToday'] / res];
-	})
+		gotData.elementChanges.push['formsTodayChange', gotData.elementChanges['formsToday'] / res];
+	})*/
 
-	elementChanges.push['soldiers', gotData.plt1size + gotData.plt2size + gotData.plt3size + gotData.plt4size + gotData.pltseniorsize];
-	var soldierstoday = 0;
+	gotData.elementChanges.push['soldiers', gotData.plt1size + gotData.plt2size + gotData.plt3size + gotData.plt4size + gotData.pltseniorsize];
+	/*var soldierstoday = 0;
 	for (const plt of gotData.soldiers) {
 		for (const soldier of plt){
-			if (soldier.upload - nextTick() < 86400){
+			if (soldier.upload - d.getTime() < 86400){
 				soldierstoday++;
 			}
 		}
 	}
-	elementChanges.push['soldiersChange', soldierstoday];
+	gotData.elementChanges.push['soldiersChange', soldierstoday];*/
 
 	gotData.pi1st = gotData.numSoldiers.plt1size;
 	gotData.pi2nd = gotData.numSoldiers.plt2size;
@@ -140,6 +129,6 @@ conn.connect(function(err){
 	gotData.linechartData.lcsenior = getChangeNum(conn, "platoon_senior", 7);
 });
 
-export function getGotData(){
+module.exports = function getGotData(){
     return gotData;
 }

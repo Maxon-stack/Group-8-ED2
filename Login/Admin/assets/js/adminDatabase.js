@@ -26,32 +26,23 @@ var gotData = {
 	},
 };
 
-const getChangeNum = (conn, plt, back)=>{
-	const arr = [];
-	for (let i = 1; i < back + 1; i++) {
-		conn.query("SELECT COUNT(*) FROM " + plt + " WHERE arrival_date < " + + toString(nextTick() - (86400 * (back + 1))) + " AND arrival_date > " + toString(nextTick() - (86400 * back)), function (err, res, fields){
-			if (err) throw err;
-			arr.push(res);
-		})
-	}
-}
 
-gotData = fetch("/getGotData")
+
+const fetchUrl = 'http://localhost:3000/getGotData';
+gotDataPromise = fetch(fetchUrl)
 	.then(response => response.json())
-	.then(data => { console.log(data)})
+	.then(data => { gotData = data; cont = true; console.log(data)})
+	.then(()=>{
 
-
-
-
-
+		
 //element ids to relevant file
 var buttonToFile = [  
-['download1', '1stplt.xlsx'],
-['download2', '2ndplt.xlsx'],
-['download3', '3rdplt.xlsx'],
-['download4', 'seniorSignin.xlsx'],
-['download5', 'shippingRoster.xlsx'],
-['download6', 'newArrivals.xlsx'],
+['download1', '1stplt.csv'],
+['download2', '2ndplt.csv'],
+['download3', '3rdplt.csv'],
+['download4', 'seniorSignin.csv'],
+['download5', 'shippingRoster.csv'],
+['download6', 'newArrivals.csv'],
 ];
 
 /**
@@ -61,13 +52,15 @@ for (let [buttonName, fileName] of buttonToFile) {
 	let button = document.getElementById(buttonName);
 	if (button) {
 		button.onclick = function(){
-		
-			var hiddenElement = document.createElement('a');
-			hiddenElement.href = './assets/exportTemplates/'+fileName;
-			hiddenElement.target = '_blank';
-				
-			//hiddenElement.download = '1stplt.csv';
-			hiddenElement.click();
+			
+			fetch('http://localhost:3000/admindata?fileName=' + fileName)
+				.then(response => response.json())
+				.then(data => {
+					var hiddenElement = document.createElement('a');
+					hiddenElement.href = '../../server/'+data;
+					hiddenElement.target = '_blank';
+					hiddenElement.click();
+				})
 
 		};
 	}
@@ -81,7 +74,7 @@ for (let [buttonName, fileName] of buttonToFile) {
 
 let databaseConnection = document.getElementById("databaseConnection");
 if (databaseConnection) {
-	databaseConnection.innerHTML = "| " + (gotData.databaseConnection ? "Connected" : "Not Connected");
+	databaseConnection.innerHTML = "| " + (gotData.connected ? "Connected" : "Not Connected");
 }
 let enterDatabase = document.getElementById("enterDatabase");
 if (enterDatabase) {
@@ -99,6 +92,7 @@ let soldiers = document.getElementById('soldiers');
 if (soldiers) {
 	soldiers.textContent = gotData.plt1size + gotData.plt2size + gotData.plt3size + gotData.plt4size + gotData.pltseniorsize;
 }
+console.log("test",gotData.elementChanges)
 for (let [id, val] of gotData.elementChanges) {
 	let element = document.getElementById(id);
 	if (element){//document.write(id)
@@ -279,3 +273,28 @@ var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption
 	}]
 });
 });
+
+const select = (el, all = false) => {
+	el = el.trim()
+	if (all) {
+		return [...document.querySelectorAll(el)]
+	} else {
+		return document.querySelector(el)
+	}
+}
+
+/*const mainContainer = select('#main');
+if (mainContainer) {
+	setTimeout(() => {
+		new ResizeObserver(function() {
+			select('.echart', true).forEach(getEchart => {
+				console.log(getEchart)
+				console.log(document.getElementById(getEchart.id))
+				document.getElementById(getEchart.id).resize();
+				echarts.getInstanceByDom(getEchart).resize();
+			})
+		}).observe(mainContainer);
+	}, 200);
+}*/
+
+	})

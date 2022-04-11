@@ -22,7 +22,7 @@ const port = 3000;
 
 // Sample API endpoint
 app.get('/', (request, response) => {
-    response.status(200).json('Hello World!');
+	response.status(200).json('Hello World!');
 });
 
 /**
@@ -35,61 +35,61 @@ app.get('/', (request, response) => {
  * The database is not hosted anywhere else, so it won't work on someone else's machine.
  */
 app.post('/login', async (request, response) => {
-    let admin = null;
+	let admin = null;
 
-    let sql = 'SELECT * FROM Administrators';
-    connection.query(sql, async (error, results) => {
-        if (error) console.log(error);
+	let sql = 'SELECT * FROM Administrators';
+	connection.query(sql, async (error, results) => {
+		if (error) console.log(error);
 
-        for (let i = 0; i < results.length; i++) {
-            const record = results[i];
-            if (request.body.username === record.username) {
-                console.log('Found user in login:\n', record);
-                admin = record;
-            }
-        }
+		for (let i = 0; i < results.length; i++) {
+			const record = results[i];
+			if (request.body.username === record.username) {
+				console.log('Found user in login:\n', record);
+				admin = record;
+			}
+		}
 
-        if (admin) {
-            try {
-                const result = await bcrypt.compare(request.body.password, admin.password); // check encrypted password
-                if (result) {
-                    const user = { name: admin.name, username: admin.username, password: admin.password };
+		if (admin) {
+			try {
+				const result = await bcrypt.compare(request.body.password, admin.password); // check encrypted password
+				if (result) {
+					const user = { name: admin.name, username: admin.username, password: admin.password };
 
-                    const accessToken = generateAccessToken(user);
-                    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET); // Generate refresh token
-                    console.log('Refresh token generated');
-                    let updateQuery = `UPDATE \`InProcessingDemo\`.\`Administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
-                    connection.query(updateQuery, async (error, results) => {
-                        if (error) {
-                            console.error(error);
-                            response.status(500).json('Failure');
-                        } else {
-                            console.log('Successful insertion of refresh token:\n', results);
-                        }
-                    });
+					const accessToken = generateAccessToken(user);
+					const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET); // Generate refresh token
+					console.log('Refresh token generated');
+					let updateQuery = `UPDATE \`InProcessingDemo\`.\`Administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
+					connection.query(updateQuery, async (error, results) => {
+						if (error) {
+							console.error(error);
+							response.status(500).json('Failure');
+						} else {
+							console.log('Successful insertion of refresh token:\n', results);
+						}
+					});
 
-                    response.status(200).json({ message: 'Success', accessToken: accessToken, refreshToken: refreshToken });
-                } else {
-                    response.status(500).json('Failure');
-                }
-            } catch {
-                response.status(500).json('Failure');
-            }
-        }
-        else if (!admin) {
-            response.status(400).json('Account not found.');
-        } else {
-            response.status(401).json('Failure');
-        }
-    });
+					response.status(200).json({ message: 'Success', accessToken: accessToken, refreshToken: refreshToken });
+				} else {
+					response.status(500).json('Failure');
+				}
+			} catch {
+				response.status(500).json('Failure');
+			}
+		}
+		else if (!admin) {
+			response.status(400).json('Account not found.');
+		} else {
+			response.status(401).json('Failure');
+		}
+	});
 });
 
 /**
  * This endpoint is for forwarding gotData information from the serverAdminDatabase file
  * to the adminDatabase file which deals with populating admin webpage.
 */
-app.get("getGotData", async (request, response) => {
-    response.status(200).json(serverAdminDatabase());
+app.get("/getGotData", async (request, response) => {
+	response.status(200).json(serverAdminDatabase());
 })
 
 /**
@@ -99,8 +99,8 @@ app.get("getGotData", async (request, response) => {
  * in the login endpoint above.
  */
 function generateAccessToken(user) {
-    console.log('Access token generated');
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' }); // Generate access token, expires in 15s (15 min for actual implementation)
+	console.log('Access token generated');
+	return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' }); // Generate access token, expires in 15s (15 min for actual implementation)
 }
 
 /**
@@ -112,26 +112,26 @@ function generateAccessToken(user) {
  */
 function authenticateToken(request, response, next) {
 
-    const authHeader = request.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (token == null) { return response.sendStatus(401) };
+	const authHeader = request.headers['authorization'];
+	const token = authHeader && authHeader.split(' ')[1];
+	if (token == null) { return response.sendStatus(401) };
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) {
-            console.log('Unauthorized access token, possibly expired');
-            return response.sendStatus(403)
-        };
-        request.user = user;
-        next();
-    });
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+		if (err) {
+			console.log('Unauthorized access token, possibly expired');
+			return response.sendStatus(403)
+		};
+		request.user = user;
+		next();
+	});
 }
 
 /**
  * Authorizes an incoming token using the authenticateToken function above.
  */
 app.get('/authorize', authenticateToken, (request, response) => {
-    console.log('Access token authorized');
-    return response.sendStatus(200);
+	console.log('Access token authorized');
+	return response.sendStatus(200);
 });
 
 /**
@@ -139,23 +139,23 @@ app.get('/authorize', authenticateToken, (request, response) => {
  * is expired as long as a valid refresh token is found in the database.
  */
 app.post('/refresh', (request, response) => {
-    const refreshToken = request.body.token;
-    if (refreshToken == null) { return response.sendStatus(401) };
+	const refreshToken = request.body.token;
+	if (refreshToken == null) { return response.sendStatus(401) };
 
-    let sql = `SELECT * FROM Administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
-    connection.query(sql, async (error, results) => {
-        if (error) console.log(error);
+	let sql = `SELECT * FROM Administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+	connection.query(sql, async (error, results) => {
+		if (error) console.log(error);
 
-        if (results.length != 0) { // If refresh token found in db
-            jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-                if (err) { console.log(err); return response.sendStatus(403) };
-                const accessToken = generateAccessToken({ username: user.username, password: user.password });
-                response.status(200).json({ message: 'Success', accessToken: accessToken });
-            });
-        } else {
-            return response.sendStatus(403);
-        }
-    });
+		if (results.length != 0) { // If refresh token found in db
+			jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+				if (err) { console.log(err); return response.sendStatus(403) };
+				const accessToken = generateAccessToken({ username: user.username, password: user.password });
+				response.status(200).json({ message: 'Success', accessToken: accessToken });
+			});
+		} else {
+			return response.sendStatus(403);
+		}
+	});
 });
 
 /**
@@ -164,28 +164,28 @@ app.post('/refresh', (request, response) => {
  * either a 401 if no token is found in the request or a 403 if not found in the database. 
  */
 app.delete('/logout', (request, response) => {
-    const refreshToken = request.body.token;
-    if (refreshToken == null) { return response.sendStatus(401) };
+	const refreshToken = request.body.token;
+	if (refreshToken == null) { return response.sendStatus(401) };
 
-    let sql = `SELECT * FROM Administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
-    connection.query(sql, async (error, results) => {
-        if (error) console.error(error);
+	let sql = `SELECT * FROM Administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+	connection.query(sql, async (error, results) => {
+		if (error) console.error(error);
 
-        if (results.length != 0) { // If refresh token found in db
+		if (results.length != 0) { // If refresh token found in db
 
-            /**
-             * We don't want to delete the row, just set the refreshToken column to NULL. 
-             */
-            let deleteQuery = `UPDATE \`InProcessingDemo\`.\`Administrators\` SET \`refreshToken\` = NULL WHERE (\`refreshToken\` = \'${refreshToken}\')`;
-            connection.query(deleteQuery, async (error, results) => {
-                if (error) console.error(error);
+			/**
+			 * We don't want to delete the row, just set the refreshToken column to NULL. 
+			 */
+			let deleteQuery = `UPDATE \`InProcessingDemo\`.\`Administrators\` SET \`refreshToken\` = NULL WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+			connection.query(deleteQuery, async (error, results) => {
+				if (error) console.error(error);
 
-                response.sendStatus(204);
-            });
-        } else {
-            return response.sendStatus(403);
-        }
-    });
+				response.sendStatus(204);
+			});
+		} else {
+			return response.sendStatus(403);
+		}
+	});
 });
 
 /**
@@ -198,28 +198,28 @@ app.delete('/logout', (request, response) => {
  * The database is not hosted anywhere else, so it won't work on someone else's machine.
  */
 app.get('/signup', async (request, response) => {
-    try {
-        const hashedPass = await bcrypt.hash(request.query.password, 10); // encrypt password via hash algorithm
-        console.log(hashedPass);
+	try {
+		const hashedPass = await bcrypt.hash(request.query.password, 10); // encrypt password via hash algorithm
+		console.log(hashedPass);
 
-        /* Allow Rank/Role properties? If so, implement in UI instead of hardcoding it. */
-        let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, \`role\`, 
-        \`rank\`, \`username\`, \`password\`) VALUES (\'${request.query.name}\', \'Admin\', 
-        \'Sergeant\', \'${request.query.username}\', \'${hashedPass}\');`;
-        connection.query(sql, (error, results) => {
-            if (error) console.error(error);
+		/* Allow Rank/Role properties? If so, implement in UI instead of hardcoding it. */
+		let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, \`role\`, 
+		\`rank\`, \`username\`, \`password\`) VALUES (\'${request.query.name}\', \'Admin\', 
+		\'Sergeant\', \'${request.query.username}\', \'${hashedPass}\');`;
+		connection.query(sql, (error, results) => {
+			if (error) console.error(error);
 
-            if (!error) {
-                response.status(201).json('Success');
-            } else if (error.code === 'ER_DUP_ENTRY') {
-                response.status(403).json('An account with this email already exists.');
-            } else {
-                response.status(500).json('Failure');
-            }
-        });
-    } catch {
-        response.status(500).json('Failure');
-    }
+			if (!error) {
+				response.status(201).json('Success');
+			} else if (error.code === 'ER_DUP_ENTRY') {
+				response.status(403).json('An account with this email already exists.');
+			} else {
+				response.status(500).json('Failure');
+			}
+		});
+	} catch {
+		response.status(500).json('Failure');
+	}
 });
 
 /**
@@ -232,31 +232,51 @@ app.get('/submit-form', (request, response) => {
 });
 
 /**
+	* Map for fileName to database table
+*/
+var buttonToFile = [  
+	['1stplt.csv', 'platoon_one'],
+	['2ndplt.csv', 'platoon_two'],
+	['3rdplt.csv', 'platoon_three'],
+	['seniorSignin.csv', 'platoon_senior'],
+	['shippingRoster.csv', 'shipping_roster'],
+	['newArrivals.csv', 'new_arrivals'],
+	];
+/**
  * Export data endpoint.
  * 
  * For admins, this endpoint will be designed to pull data from the database and export it 
  * into a CSV file. 
  */
-app.get('/admindata', (request, response) => {
-    let sql = 'SELECT * FROM Administrators';
-    connection.query(sql, (error, results) => {
-        if (error) console.log(error);
+app.get('/admindata', async (request, response) => {
+	let table = "";
+	for (let [fn, tl] of buttonToFile) {
+		if (fn == request.query.fileName){
+			table = tl;
+			continue;
+		}
+	}
+	console.log("find table", table);
+	if (table == ""){
+		response.status(200).json("");
+		return;
+	}
 
-        const jsonData = JSON.parse(JSON.stringify(results));
+	let sql = 'SELECT * FROM ' + table;
+	connection.query(sql, (error, results) => {
+		if (error) console.log(error);
+		const jsonData = JSON.parse(JSON.stringify(results));
 
-        converter.json2csv(jsonData, (err, csv) => {
-            if (err) { console.error(err) };
+		converter.json2csv(jsonData, (err, csv) => {
+			if (err) { console.error(err) };
+			fs.writeFileSync(request.query.fileName, csv);
+		});
 
-            console.log(csv);
-
-            fs.writeFileSync('admin_data.csv', csv);
-        });
-
-        // Respond with CSV file from database data
-        response.status(200).attachment('admin_data.csv').sendFile(__dirname + '/admin_data.csv');
-    });
+		// Respond with CSV fileName
+		response.status(200).json(request.query.fileName);
+	});
 });
 
 app.listen(port, () => {
-    console.log('Listening on port 3000');
+	console.log('Listening on port 3000');
 });
