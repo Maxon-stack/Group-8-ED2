@@ -54,23 +54,23 @@ conn.connect(function(err){
 	//	query for soilder sizes
 	conn.query("SELECT COUNT(*) FROM platoon_one", function (err, res, fields){
 		if (err) throw err;
-		gotData.numSoldiers.plt1size = res;
+		gotData.numSoldiers.plt1size = res[0]['COUNT(*)'];
 	})
 	conn.query("SELECT COUNT(*) FROM platoon_two", function (err, res, fields){
 		if (err) throw err;
-		gotData.numSoldiers.plt2size = res;
+		gotData.numSoldiers.plt2size = res[0]['COUNT(*)'];;
 	})
 	conn.query("SELECT COUNT(*) FROM platoon_three", function (err, res, fields){
 		if (err) throw err;
-		gotData.numSoldiers.plt3size = res;
+		gotData.numSoldiers.plt3size = res[0]['COUNT(*)'];;
 	})
 	conn.query("SELECT COUNT(*) FROM platoon_four", function (err, res, fields){
 		if (err) throw err;
-		gotData.numSoldiers.plt4size = res;
+		gotData.numSoldiers.plt4size = res[0]['COUNT(*)'];;
 	})
 	conn.query("SELECT COUNT(*) FROM platoon_senior", function (err, res, fields){
 		if (err) throw err;
-		gotData.numSoldiers.pltseniorsize = res;
+		gotData.numSoldiers.pltseniorsize = res[0]['COUNT(*)'];;
 	})
 
 	//	query for form data

@@ -37,12 +37,12 @@ gotDataPromise = fetch(fetchUrl)
 		
 //element ids to relevant file
 var buttonToFile = [  
-['download1', '1stplt.csv'],
-['download2', '2ndplt.csv'],
-['download3', '3rdplt.csv'],
-['download4', 'seniorSignin.csv'],
-['download5', 'shippingRoster.csv'],
-['download6', 'newArrivals.csv'],
+['download1', '1stplt.xlsx'],
+['download2', '2ndplt.xlsx'],
+['download3', '3rdplt.xlsx'],
+['download4', 'seniorSignin.xlsx'],
+['download5', 'shippingRoster.xlsx'],
+['download6', 'newArrivals.xlsx'],
 ];
 
 /**
@@ -90,7 +90,7 @@ if (formsToday) {
 }
 let soldiers = document.getElementById('soldiers');
 if (soldiers) {
-	soldiers.textContent = gotData.plt1size + gotData.plt2size + gotData.plt3size + gotData.plt4size + gotData.pltseniorsize;
+	soldiers.textContent = gotData.numSoldiers.plt1size + gotData.numSoldiers.plt2size + gotData.numSoldiers.plt3size + gotData.numSoldiers.plt4size + gotData.numSoldiers.pltseniorsize;
 }
 console.log("test",gotData.elementChanges)
 for (let [id, val] of gotData.elementChanges) {

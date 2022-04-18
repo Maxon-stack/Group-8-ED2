@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const converter = require('json-2-csv');
 const fs = require('fs');
+const xlsx = require("xlsx");
 require('dotenv').config();
 
 const connection = require('./database');
@@ -235,12 +236,12 @@ app.get('/submit-form', (request, response) => {
 	* Map for fileName to database table
 */
 var buttonToFile = [  
-	['1stplt.csv', 'platoon_one'],
-	['2ndplt.csv', 'platoon_two'],
-	['3rdplt.csv', 'platoon_three'],
-	['seniorSignin.csv', 'platoon_senior'],
-	['shippingRoster.csv', 'shipping_roster'],
-	['newArrivals.csv', 'new_arrivals'],
+	['1stplt.xlsx', 'platoon_one'],
+	['2ndplt.xlsx', 'platoon_two'],
+	['3rdplt.xlsx', 'platoon_three'],
+	['seniorSignin.xlsx', 'platoon_senior'],
+	['shippingRoster.xlsx', 'shipping_roster'],
+	['newArrivals.xlsx', 'new_arrivals'],
 	];
 /**
  * Export data endpoint.
@@ -269,7 +270,38 @@ app.get('/admindata', async (request, response) => {
 
 		converter.json2csv(jsonData, (err, csv) => {
 			if (err) { console.error(err) };
-			fs.writeFileSync(request.query.fileName, csv);
+			//fs.writeFileSync(request.query.fileName, csv);
+			//fs.appendFileSync(request.query.fileName, csv);
+
+			const spreadsheet = xlsx.readFile(request.query.fileName);
+			const sheets = spreadsheet.SheetNames;
+			const sheet = spreadsheet.Sheets[sheets[0]];
+
+			/*console.log(csv);
+			//sheet['B2'] = "UGH";
+			console.log("AHHH", csv[0], csv[2], jsonData);
+			console.log("BEFORE", sheet['A1']);
+			const cur = sheet['B2'];
+			const work = cur !== undefined ? cur : {};
+			work.t = "UGH";
+			sheet['B2'] = work;
+			console.log("work", work);
+			sheet['A1'].t = 'AHH'
+			spreadsheet.Sheets[sheets[0]] = sheet;*/
+
+			/*fs.unlink(request.query.fileName, (error) => {})
+			//fs.unlinkSync(request.query.fileName);
+			fs.copyFile('../Login/Admin/assets/exportTemplates/'+request.query.fileName, './'+request.query.fileName, (err) => {
+				if (err) throw err;
+				console.log('File was copied to destination');
+			});*/
+
+			const cur = sheet['A1'];
+			console.log(cur);
+
+			sheet['A1'].v = 'TEST';
+
+			xlsx.writeFileXLSX(spreadsheet, request.query.fileName, {raw: true});
 		});
 
 		// Respond with CSV fileName
