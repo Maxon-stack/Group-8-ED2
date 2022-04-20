@@ -305,7 +305,8 @@
   /**
    * Autoresize echart charts
    */
-  const mainContainer = select('#main');
+  // dan disabled this
+  /*const mainContainer = select('#main');
   if (mainContainer) {
     setTimeout(() => {
       new ResizeObserver(function() {
@@ -314,7 +315,7 @@
         })
       }).observe(mainContainer);
     }, 200);
-  }
+  }*/
 
 
 

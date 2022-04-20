@@ -176,21 +176,47 @@ CREATE TABLE IF NOT EXISTS `platoon_senior` (
 
 
 --
--- Table structure for table `Administrators`
+-- Table structure for table `administrators`
 --
 
-DROP TABLE IF EXISTS `Administrators`;
-CREATE TABLE IF NOT EXISTS `Administrators` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `refreshToken` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+DROP TABLE IF EXISTS `administrators`;
+CREATE TABLE IF NOT EXISTS `administrators` (
+  `DODID` varchar(25) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `role` varchar(25) DEFAULT NULL,
+  `rank` varchar(25) DEFAULT NULL,
+  `username` varchar(25) DEFAULT NULL,
+  `password` varchar(25) DEFAULT NULL,
+  `refreshToken` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`DODID`),
+  UNIQUE KEY `DODID` (`DODID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `shipping_roster`
+--
+
+DROP TABLE IF EXISTS `shipping_roster`;
+CREATE TABLE IF NOT EXISTS `shipping_roster` (
+  `PLT` varchar(25) NOT NULL,
+  `SSN` varchar(25) NOT NULL,
+  `DODID` varchar(25) DEFAULT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `rank` varchar(25) DEFAULT NULL,
+  `MOS` varchar(25) DEFAULT NULL,
+  `unit` varchar(25) DEFAULT NULL,
+  `gender` varchar(25) DEFAULT NULL,
+  `phone_number` varchar(25) DEFAULT NULL,
+  `room_number` varchar(25) DEFAULT NULL,
+  `arrival_date` varchar(25) DEFAULT NULL,
+  `POV` varchar(25) DEFAULT NULL,
+  `time_shipped` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`DODID`),
+  UNIQUE KEY `DODID` (`DODID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
@@ -204,3 +230,11 @@ COMMIT;
 
 INSERT INTO `platoon_one` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
 ('1', 'Dan', 'Man', '1st', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill');
+INSERT INTO `platoon_two` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
+('32', 'Ben', 'Man', '2nd', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill');
+INSERT INTO `platoon_three` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
+('54', 'Tom', 'Man', '3rd', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill');
+INSERT INTO `platoon_four` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
+('32', 'Sam', 'Man', '4th', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill');
+INSERT INTO `platoon_senior` (`DODID`, `first_name`, `last_name`, `rank`, `MOS`, `unit`, `gender`, `room_number`, `phone_number`, `arrival_date`, `days_in_processing`, `vaccine_status`, `SSN`, `PLT`) VALUES
+('233', 'Bob', 'Man', '5th', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill', 'fill');
