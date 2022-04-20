@@ -35,20 +35,24 @@ loginForm.addEventListener('submit', (e) => {
         body: JSON.stringify(jsonData),
     })
         .then(response => {
-            response.json();
-            if (response.status === 200) {
-                //alert('Logged in successfully.');
-                window.open("../Login/Admin/index.html");
-            } else if (response.status === 404) {
-                alert('An account with this email was not found. Try creating an account.');
-            } else if (response.status === 401) {
-                alert('Login failure. Try a different password.');
-            } else if (response.status === 403) {
-                alert('Access denied.');
-            }
-            else {
-                alert('Failed to login.');
-            }
+            response.json().then(body => {
+                if (response.status === 200) {
+                    //alert('Logged in successfully.');
+                    sessionStorage.setItem('accessToken', body.accessToken);
+                    sessionStorage.setItem('refreshToken', body.refreshToken);
+                    window.location.href = "../Login/Admin/index.html";
+                } else if (response.status === 404) {
+                    alert('An account with this email was not found. Try creating an account.');
+                } else if (response.status === 401) {
+                    alert('Login failure. Try a different password.');
+                } else if (response.status === 403) {
+                    alert('Access denied.');
+                }
+                else {
+                    alert('Failed to login.');
+                }
+            });
+
         });
 
     loginForm.reset();
