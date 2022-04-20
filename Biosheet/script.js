@@ -213,7 +213,7 @@ function handleEmergencyState(event) {
   UserInputs.emergency_state = event.value
 }
 function handleEmergencyZip(event) {
-  UserInputs.emergency_state = event.value
+  UserInputs.emergency_zip = event.value
 }
 function handleArrivalDate(event) {
   UserInputs.arrival_date = event.value
