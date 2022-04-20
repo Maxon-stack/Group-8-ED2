@@ -40,7 +40,7 @@
             <div class="col-12 input_area">
               <div class="form-floating">
                 <select class="form-select" id="PLATOON" aria-label="Floating label select example"
-                  onchange=handlePlatoon(this)>
+                  onchange=handlePlatoon(this) required>
                   <option disabled selected></option>
                   <option value="1">1ST</option>
                   <option value="2">2ND</option>
@@ -64,14 +64,15 @@
             </div>
             <div class="col input_area ">
               <div class="form-floating">
-                <input type="text" class="form-control" id="DODID" placeholder="" value="" onchange=handleDODID(this)>
+                <input type="text" class="form-control" id="DODID" placeholder="" value="" onchange=handleDODID(this)
+                  required>
                 <label for="DODID:">DODID:</label>
               </div>
             </div>
 
             <div class="col input_area">
               <div class="form-floating">
-                <input type="text" class="form-control" id="FullSSN" placeholder=""value="" onchange=handleSSN(this)>
+                <input type="text" class="form-control" id="FullSSN" placeholder="" value="" onchange=handleSSN(this)>
                 <label for="FullSSN">Full SSN:</label>
               </div>
             </div>
@@ -227,13 +228,13 @@
             <div class="col input_area">
               <div class="form-floating">
                 <input type="date" class="form-control" id="Arrival_Date" placeholder="" value=""
-                  pattern="\d{4}-\d{2}-\d{2}" onchange=handleArrival(this)>
+                  pattern="\d{4}-\d{2}-\d{2}" onchange=handleArrivalDate(this)>
                 <label for="Arrival_Date">Date Of Arrival:</label>
               </div>
             </div>
-            
+
           </div>
-          
+
 
           <br>
 
@@ -386,7 +387,7 @@
               <div class="col input_area">
                 <div class="form-floating">
                   <input type="text" class="form-control" id="Zip" placeholder="" value="" onchange=handleZip(this)>
-                  <label for="City">Zip Cpde:</label>
+                  <label for="City">Zip Code:</label>
                 </div>
               </div>
 
@@ -422,7 +423,7 @@
                 <label for="EmergencyRelation">Relation:</label>
               </div>
             </div>
-          </div>          
+          </div>
           <div class="row row_holder">
             <div class="col input_area">
               <div class="form-floating">
@@ -478,7 +479,7 @@
                 <div class="form-floating">
                   <input type="text" class="form-control" id="Zip" placeholder="" value=""
                     onchange=handleEmergencyZip(this)>
-                  <label for="City">Zip Cpde:</label>
+                  <label for="City">Zip Code:</label>
                 </div>
               </div>
 
@@ -632,9 +633,7 @@
                   <div class="input-group">
                     <div class="input-group-text">Name</div>
                     <input type="text" class="form-control" id="EmergencyQuarantineName" placeholder="Type..."
-                      onchange="handleMemoName(this)"
-                      required
-                      >
+                      onchange="handleMemoName(this)" required>
                   </div>
                 </div>
               </div>
@@ -646,9 +645,7 @@
                   <div class="input-group">
                     <div class="input-group-text">E-Signature</div>
                     <input type="text" class="form-control signature" id="EmergencyRelation" placeholder="Type..."
-                      onchange="handleMemoSignature(this)"
-                      required
-                      >
+                      onchange="handleMemoSignature(this)" required>
                   </div>
                 </div>
               </div>
@@ -658,15 +655,14 @@
         </div>
 
         <div class="btnHolder-Memo">
-          <button type="button" class="btn btn-warning"
-          onclick="HandleReturnToBio(this)">
+          <button type="button" class="btn btn-warning" onclick="HandleReturnToBio(this)">
             Previous Page
-          </button>    
-          
+          </button>
+
           <p>
             Page 2 of 3
           </p>
-          
+
           <button type="submit" class="btn btn-primary">
             Next Page
           </button>
@@ -741,7 +737,7 @@
             </div>
           </div>
         </div>
-        
+
 
 
         <div class="card specialCard">
@@ -1038,15 +1034,14 @@
 
     </div>
     <div class="btnHolder-BH">
-      <button type="button" class="btn btn-warning"
-      onclick="HandleReturnToMemo(this)">
+      <button type="button" class="btn btn-warning" onclick="HandleReturnToMemo(this)">
         Previous Page
-      </button>    
-      
+      </button>
+
       <p>
         Page 3 of 3
       </p>
-      
+
       <button type="submit" class="btn btn-primary">
         Submit Application
       </button>
