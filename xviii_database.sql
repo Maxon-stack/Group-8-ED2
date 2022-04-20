@@ -175,6 +175,21 @@ CREATE TABLE IF NOT EXISTS `platoon_senior` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
+--
+-- Table structure for table `Administrators`
+--
+
+DROP TABLE IF EXISTS `Administrators`;
+CREATE TABLE IF NOT EXISTS `Administrators` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `refreshToken` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
