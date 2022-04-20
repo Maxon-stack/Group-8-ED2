@@ -100,7 +100,7 @@ app.get("getGotData", async (request, response) => {
  */
 function generateAccessToken(user) {
     console.log('Access token generated');
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' }); // Generate access token, expires in 15s (15 min for actual implementation)
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20min' }); // Generate access token, expires in 15s (15 min for actual implementation)
 }
 
 /**
@@ -202,10 +202,9 @@ app.get('/signup', async (request, response) => {
         const hashedPass = await bcrypt.hash(request.query.password, 10); // encrypt password via hash algorithm
         console.log(hashedPass);
 
-        /* Allow Rank/Role properties? If so, implement in UI instead of hardcoding it. */
-        let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, \`role\`, 
-        \`rank\`, \`username\`, \`password\`) VALUES (\'${request.query.name}\', \'Admin\', 
-        \'Sergeant\', \'${request.query.username}\', \'${hashedPass}\');`;
+        let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, 
+        \`username\`, \`password\`) VALUES (\'${request.query.name}\', 
+        \'${request.query.username}\', \'${hashedPass}\');`;
         connection.query(sql, (error, results) => {
             if (error) console.error(error);
 
@@ -228,7 +227,53 @@ app.get('/signup', async (request, response) => {
  * For soldiers submitting their bio sheet, questionnaire, etc., this endpoint will be 
  * designed to inject the data into the database in the appropriate table.
  */
-app.get('/submit-form', (request, response) => {
+app.post('/submit', (request, response) => {
+    const formData = request.body ? request.body : null;
+    if (!formData) {
+        return response.status(400).json('Invalid data found in request body.');
+    }
+
+    var xviii_datasheet = {}, bh_stigma_questionnaire = {};
+
+    // Loop through request body and separate data into the datasheet variable 
+    // and the questionnaire
+    for (let prop in formData) {
+        if (prop == 'bh_Stigma') {
+            for (bh_prop in formData.bh_Stigma) {
+                bh_stigma_questionnaire[bh_prop] = formData.bh_Stigma[bh_prop];
+            }
+            break;
+        }
+        xviii_datasheet[prop] = formData[prop];
+    }
+
+    console.log(xviii_datasheet);
+    console.log(bh_stigma_questionnaire);
+
+    // console.log(xviii_datasheet.platoon);
+
+    try {
+        let sql = `INSERT INTO \`InProcessingDemo\`.\`xviii_datasheet\` (\`PLT\`, \`DODID\`, \`SSN\`, \`first_name\`, 
+        \`last_name\`, \`rank\`, \`MOS\`, \`unit\`, \`gender\`, \`phone_number\`, \`arrival_date\`, 
+        \`vaccine_status\`) VALUES 
+        (\'${xviii_datasheet.platoon}\', \'${xviii_datasheet.DODID}\', \'${xviii_datasheet.SSN}\', 
+        \'${xviii_datasheet.first_name}\', \'${xviii_datasheet.last_name}\', \'${xviii_datasheet.rank}\', 
+        \'${xviii_datasheet.MOS}\', \'${xviii_datasheet.gaining_unit}\', \'${xviii_datasheet.gender}\', 
+        \'${xviii_datasheet.phone_number}\', \'${xviii_datasheet.arrival_date}\', 
+        \'${xviii_datasheet.covid_vaccine}\');`;
+        connection.query(sql, (error, results) => {
+            if (error) console.error(error);
+
+            if (!error) {
+                console.log('Form successfully submitted');
+                response.status(200).json('Successful form submission.');
+            } else {
+                response.status(500).json('Failure');
+            }
+        });
+    } catch {
+        response.status(500).json('Failure');
+    }
 });
 
 /**
