@@ -183,8 +183,6 @@ DROP TABLE IF EXISTS `administrators`;
 CREATE TABLE IF NOT EXISTS `administrators` (
   `DODID` varchar(25) NOT NULL,
   `name` varchar(25) NOT NULL,
-  `role` varchar(25) DEFAULT NULL,
-  `rank` varchar(25) DEFAULT NULL,
   `username` varchar(25) DEFAULT NULL,
   `password` varchar(25) DEFAULT NULL,
   `refreshToken` varchar(25) DEFAULT NULL,
