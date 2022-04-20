@@ -38,7 +38,7 @@ app.get('/', (request, response) => {
 app.post('/login', async (request, response) => {
     let admin = null;
 
-    let sql = 'SELECT * FROM Administrators';
+    let sql = 'SELECT * FROM administrators';
     connection.query(sql, async (error, results) => {
         if (error) console.log(error);
 
@@ -59,7 +59,7 @@ app.post('/login', async (request, response) => {
                     const accessToken = generateAccessToken(user);
                     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET); // Generate refresh token
                     console.log('Refresh token generated');
-                    let updateQuery = `UPDATE \`InProcessingDemo\`.\`Administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
+                    let updateQuery = `UPDATE \`InProcessingDemo\`.\`administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
                     connection.query(updateQuery, async (error, results) => {
                         if (error) {
                             console.error(error);
@@ -101,7 +101,7 @@ app.get("/getGotData", async (request, response) => {
  */
 function generateAccessToken(user) {
     console.log('Access token generated');
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' }); // Generate access token, expires in 15s (15 min for actual implementation)
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '40s' }); // Generate access token, expires in 15s (15 min for actual implementation)
 }
 
 /**
@@ -143,7 +143,7 @@ app.post('/refresh', (request, response) => {
     const refreshToken = request.body.token;
     if (refreshToken == null) { return response.sendStatus(401) };
 
-    let sql = `SELECT * FROM Administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+    let sql = `SELECT * FROM administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
     connection.query(sql, async (error, results) => {
         if (error) console.log(error);
 
@@ -168,7 +168,7 @@ app.delete('/logout', (request, response) => {
     const refreshToken = request.body.token;
     if (refreshToken == null) { return response.sendStatus(401) };
 
-    let sql = `SELECT * FROM Administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+    let sql = `SELECT * FROM administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
     connection.query(sql, async (error, results) => {
         if (error) console.error(error);
 
@@ -177,7 +177,7 @@ app.delete('/logout', (request, response) => {
             /**
              * We don't want to delete the row, just set the refreshToken column to NULL. 
              */
-            let deleteQuery = `UPDATE \`InProcessingDemo\`.\`Administrators\` SET \`refreshToken\` = NULL WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+            let deleteQuery = `UPDATE \`InProcessingDemo\`.\`administrators\` SET \`refreshToken\` = NULL WHERE (\`refreshToken\` = \'${refreshToken}\')`;
             connection.query(deleteQuery, async (error, results) => {
                 if (error) console.error(error);
 
@@ -200,12 +200,12 @@ app.delete('/logout', (request, response) => {
  */
 app.get('/signup', async (request, response) => {
     try {
-        const hashedPass = await bcrypt.hash(request.query.password, 10); // encrypt password via hash algorithm
+        const hashedPass = await bcrypt.hash(request.body.password, 10); // encrypt password via hash algorithm
         console.log(hashedPass);
 
-        let sql = `INSERT INTO \`InProcessingDemo\`.\`Administrators\` (\`name\`, 
-        \`username\`, \`password\`) VALUES (\'${request.query.name}\', 
-        \'${request.query.username}\', \'${hashedPass}\');`;
+        let sql = `INSERT INTO \`InProcessingDemo\`.\`administrators\` (\`name\`, 
+        \`username\`, \`password\`, \`refreshToken\`) VALUES (\'${request.body.name}\', 
+        \'${request.body.username}\', \'${hashedPass}\', \'123\');`;
         connection.query(sql, (error, results) => {
             if (error) console.error(error);
 
@@ -225,8 +225,11 @@ app.get('/signup', async (request, response) => {
 /**
  * Form submission endpoint.
  * 
- * For soldiers submitting their bio sheet, questionnaire, etc., this endpoint will be 
- * designed to inject the data into the database in the appropriate table.
+ * For soldiers submitting their bio sheet, questionnaire, etc., this endpoint submits the data into the database based on what platoon was selected, and also
+ * submits the questionnaire results into its own table. 
+ * 
+ * Since the DODID is unique, the DODID in the table platoon_one, for example, will match the row in the 
+ * questionnaire table with the same DODID, so those are the responses of the same soldier in the questionnaire.
  */
 app.post('/submit', (request, response) => {
     const formData = request.body ? request.body : null;
@@ -239,9 +242,13 @@ app.post('/submit', (request, response) => {
     // Loop through request body and separate data into the datasheet variable 
     // and the questionnaire
     for (let prop in formData) {
-        if (prop == 'bh_Stigma') {
+        if (prop == "bh_Stigma") {
             for (bh_prop in formData.bh_Stigma) {
-                bh_stigma_questionnaire[bh_prop] = formData.bh_Stigma[bh_prop];
+                if (bh_prop == 'q_two' || bh_prop == 'q_three' || bh_prop == 'q_four') {
+                    bh_stigma_questionnaire[bh_prop] = JSON.stringify(formData.bh_Stigma[bh_prop]);
+                } else {
+                    bh_stigma_questionnaire[bh_prop] = formData.bh_Stigma[bh_prop];
+                }
             }
             break;
         }
@@ -251,25 +258,48 @@ app.post('/submit', (request, response) => {
     console.log(xviii_datasheet);
     console.log(bh_stigma_questionnaire);
 
-    // console.log(xviii_datasheet.platoon);
+    let plt_tables = {
+        '1': 'one',
+        '2': 'two',
+        '3': 'three',
+        '4': 'four',
+        'Senior': 'senior'
+    };
 
     try {
-        let sql = `INSERT INTO \`InProcessingDemo\`.\`xviii_datasheet\` (\`PLT\`, \`DODID\`, \`SSN\`, \`first_name\`, 
-        \`last_name\`, \`rank\`, \`MOS\`, \`unit\`, \`gender\`, \`phone_number\`, \`arrival_date\`, 
-        \`vaccine_status\`) VALUES 
+        let sql = `INSERT INTO \`InProcessingDemo\`.\`platoon_${plt_tables[xviii_datasheet.platoon]}\` (\`PLT\`, \`DODID\`, \`SSN\`, \`first_name\`, 
+        \`last_name\`, \`rank\`, \`MOS\`, \`ASI\`, \`gaining_unit\`, \`gender\`, \`phone_number\`, \`arrival_date\`, \`date_of_birth\`, \`place_of_birth\`, 
+        \`home_of_record\`, \`ETS\`, \`security_clearance\`, \`BASD\`, \`DOR\`, \`marital_status\`,
+        \`blood_type\`, \`glasses\`, \`inserts_on_hand\`, \`color_blind\`, \`vaccine_status\`, \`email\`, \`army_email\`, \`street_address\`, 
+        \`address_line_2\`, \`city\`, \`state\`, \`zip_code\`, \`emergency_name\`, \`emergency_relation\`, \`emergency_phone_number\`, \`emergency_email\`, 
+        \`emergency_street_address\`, \`emergency_address_line_2\`, \`emergency_city\`, \`emergency_state\`, \`emergency_zip_code\`) VALUES 
         (\'${xviii_datasheet.platoon}\', \'${xviii_datasheet.DODID}\', \'${xviii_datasheet.SSN}\', 
         \'${xviii_datasheet.first_name}\', \'${xviii_datasheet.last_name}\', \'${xviii_datasheet.rank}\', 
-        \'${xviii_datasheet.MOS}\', \'${xviii_datasheet.gaining_unit}\', \'${xviii_datasheet.gender}\', 
-        \'${xviii_datasheet.phone_number}\', \'${xviii_datasheet.arrival_date}\', 
-        \'${xviii_datasheet.covid_vaccine}\');`;
+        \'${xviii_datasheet.MOS}\', \'${xviii_datasheet.ASI}\', \'${xviii_datasheet.gaining_unit}\', \'${xviii_datasheet.gender}\', 
+        \'${xviii_datasheet.phone_number}\', \'${xviii_datasheet.arrival_date}\', \'${xviii_datasheet.date_of_birth}\', \'${xviii_datasheet.place_of_birth}\',
+        \'${xviii_datasheet.home_of_record}\', \'${xviii_datasheet.ETS}\', \'${xviii_datasheet.security_clearence}\', \'${xviii_datasheet.BASD}\', \'${xviii_datasheet.DOR}\',
+        \'${xviii_datasheet.marital_status}\', \'${xviii_datasheet.blood_type}\', \'${xviii_datasheet.glasses}\', \'${xviii_datasheet.inserts}\',
+        \'${xviii_datasheet.color_blind}\', \'${xviii_datasheet.covid_vaccine}\', \'${xviii_datasheet.personal_email}\', \'${xviii_datasheet.army_email}\', \'${xviii_datasheet.street_address}\',
+        \'${xviii_datasheet.address_line_2}\', \'${xviii_datasheet.city}\', \'${xviii_datasheet.state}\', \'${xviii_datasheet.zip}\', \'${xviii_datasheet.emergency_name}\', 
+        \'${xviii_datasheet.emergency_relation}\', \'${xviii_datasheet.emergency_phone_number}\', \'${xviii_datasheet.emergency_email}\', \'${xviii_datasheet.emergency_street_address}\',
+        \'${xviii_datasheet.emergency_address_line_2}\', \'${xviii_datasheet.emergency_city}\', \'${xviii_datasheet.emergency_state}\', \'${xviii_datasheet.emergency_zip}\');`;
         connection.query(sql, (error, results) => {
             if (error) console.error(error);
 
             if (!error) {
-                console.log('Form successfully submitted');
-                response.status(200).json('Successful form submission.');
+                console.log('datasheet successfully submitted');
+
+                let bh_sql = `INSERT INTO \`InProcessingDemo\`.\`bh_stigma_questionnaire\` (\`DODID\`, \`q_one\`, \`q_two\`, \`q_three\`, \`q_four\`, \`q_five\`, \`q_six\`, \`q_seven\`, \`q_eight\`, \`q_nine\`, \`q_ten\`) VALUES (\'${xviii_datasheet.DODID}\', \'${bh_stigma_questionnaire.q_one}\', \'${bh_stigma_questionnaire.q_two}\', \'${bh_stigma_questionnaire.q_three}\', \'${bh_stigma_questionnaire.q_four}\', \'${bh_stigma_questionnaire.q_five}\', \'${bh_stigma_questionnaire.q_six}\', \'${bh_stigma_questionnaire.q_seven}\', \'${bh_stigma_questionnaire.q_eight}\', \'${bh_stigma_questionnaire.q_nine}\', \'${bh_stigma_questionnaire.q_ten}\')`;
+                connection.query(bh_sql, (error, results) => {
+                    if (error) console.error(error);
+
+                    if (!error) {
+                        console.log('questionnaire successfully submitted');
+                        response.status(200).json('Successful form submission.');
+                    }
+                });
             } else {
-                response.status(500).json('Failure');
+                response.status(500).json('Failure with bh');
             }
         });
     } catch {
