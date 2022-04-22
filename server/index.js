@@ -8,7 +8,7 @@ const fs = require('fs');
 const xlsx = require("xlsx");
 require('dotenv').config();
 
-const connection = require('./database');
+const pool = require('./database');
 const serverAdminDatabase = require('./serverAdminDatabase');
 
 const app = express();
@@ -19,7 +19,8 @@ app.use(bodyParser.json()); // for parsing json objects in request body
  * Port 3000 for development purposes, our sponsor 
  * should let us know what port is available on their network to use.
  */
-const PORT = 3000;
+const PORT = 8080;
+const DB_NAME = 'heroku_a3258b7e4d7034b';
 
 // Sample API endpoint
 app.get('/', (request, response) => {
@@ -39,7 +40,7 @@ app.post('/login', async (request, response) => {
     let admin = null;
 
     let sql = 'SELECT * FROM administrators';
-    connection.query(sql, async (error, results) => {
+    pool.query(sql, async (error, results) => {
         if (error) console.log(error);
 
         for (let i = 0; i < results.length; i++) {
@@ -59,8 +60,8 @@ app.post('/login', async (request, response) => {
                     const accessToken = generateAccessToken(user);
                     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET); // Generate refresh token
                     console.log('Refresh token generated');
-                    let updateQuery = `UPDATE \`InProcessingDemo\`.\`administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
-                    connection.query(updateQuery, async (error, results) => {
+                    let updateQuery = `UPDATE \`${DB_NAME}\`.\`administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
+                    pool.query(updateQuery, async (error, results) => {
                         if (error) {
                             console.error(error);
                             response.status(500).json('Failure');
@@ -144,7 +145,7 @@ app.post('/refresh', (request, response) => {
     if (refreshToken == null) { return response.sendStatus(401) };
 
     let sql = `SELECT * FROM administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
-    connection.query(sql, async (error, results) => {
+    pool.query(sql, async (error, results) => {
         if (error) console.log(error);
 
         if (results.length != 0) { // If refresh token found in db
@@ -169,7 +170,7 @@ app.delete('/logout', (request, response) => {
     if (refreshToken == null) { return response.sendStatus(401) };
 
     let sql = `SELECT * FROM administrators WHERE (\`refreshToken\` = \'${refreshToken}\')`;
-    connection.query(sql, async (error, results) => {
+    pool.query(sql, async (error, results) => {
         if (error) console.error(error);
 
         if (results.length != 0) { // If refresh token found in db
@@ -177,8 +178,8 @@ app.delete('/logout', (request, response) => {
             /**
              * We don't want to delete the row, just set the refreshToken column to NULL. 
              */
-            let deleteQuery = `UPDATE \`InProcessingDemo\`.\`administrators\` SET \`refreshToken\` = NULL WHERE (\`refreshToken\` = \'${refreshToken}\')`;
-            connection.query(deleteQuery, async (error, results) => {
+            let deleteQuery = `UPDATE \`${DB_NAME}\`.\`administrators\` SET \`refreshToken\` = NULL WHERE (\`refreshToken\` = \'${refreshToken}\')`;
+            pool.query(deleteQuery, async (error, results) => {
                 if (error) console.error(error);
 
                 response.sendStatus(204);
@@ -203,10 +204,10 @@ app.get('/signup', async (request, response) => {
         const hashedPass = await bcrypt.hash(request.body.password, 10); // encrypt password via hash algorithm
         console.log(hashedPass);
 
-        let sql = `INSERT INTO \`InProcessingDemo\`.\`administrators\` (\`name\`, 
+        let sql = `INSERT INTO \`${DB_NAME}\`.\`administrators\` (\`name\`, 
         \`username\`, \`password\`, \`refreshToken\`) VALUES (\'${request.body.name}\', 
         \'${request.body.username}\', \'${hashedPass}\', \'123\');`;
-        connection.query(sql, (error, results) => {
+        pool.query(sql, (error, results) => {
             if (error) console.error(error);
 
             if (!error) {
@@ -267,7 +268,7 @@ app.post('/submit', (request, response) => {
     };
 
     try {
-        let sql = `INSERT INTO \`InProcessingDemo\`.\`platoon_${plt_tables[xviii_datasheet.platoon]}\` (\`PLT\`, \`DODID\`, \`SSN\`, \`first_name\`, 
+        let sql = `INSERT INTO \`${DB_NAME}\`.\`platoon_${plt_tables[xviii_datasheet.platoon]}\` (\`PLT\`, \`DODID\`, \`SSN\`, \`first_name\`, 
         \`last_name\`, \`rank\`, \`MOS\`, \`ASI\`, \`gaining_unit\`, \`gender\`, \`phone_number\`, \`arrival_date\`, \`date_of_birth\`, \`place_of_birth\`, 
         \`home_of_record\`, \`ETS\`, \`security_clearance\`, \`BASD\`, \`DOR\`, \`marital_status\`,
         \`blood_type\`, \`glasses\`, \`inserts_on_hand\`, \`color_blind\`, \`vaccine_status\`, \`email\`, \`army_email\`, \`street_address\`, 
@@ -283,14 +284,14 @@ app.post('/submit', (request, response) => {
         \'${xviii_datasheet.address_line_2}\', \'${xviii_datasheet.city}\', \'${xviii_datasheet.state}\', \'${xviii_datasheet.zip}\', \'${xviii_datasheet.emergency_name}\', 
         \'${xviii_datasheet.emergency_relation}\', \'${xviii_datasheet.emergency_phone_number}\', \'${xviii_datasheet.emergency_email}\', \'${xviii_datasheet.emergency_street_address}\',
         \'${xviii_datasheet.emergency_address_line_2}\', \'${xviii_datasheet.emergency_city}\', \'${xviii_datasheet.emergency_state}\', \'${xviii_datasheet.emergency_zip}\');`;
-        connection.query(sql, (error, results) => {
+        pool.query(sql, (error, results) => {
             if (error) console.error(error);
 
             if (!error) {
                 console.log('datasheet successfully submitted');
 
-                let bh_sql = `INSERT INTO \`InProcessingDemo\`.\`bh_stigma_questionnaire\` (\`DODID\`, \`q_one\`, \`q_two\`, \`q_three\`, \`q_four\`, \`q_five\`, \`q_six\`, \`q_seven\`, \`q_eight\`, \`q_nine\`, \`q_ten\`) VALUES (\'${xviii_datasheet.DODID}\', \'${bh_stigma_questionnaire.q_one}\', \'${bh_stigma_questionnaire.q_two}\', \'${bh_stigma_questionnaire.q_three}\', \'${bh_stigma_questionnaire.q_four}\', \'${bh_stigma_questionnaire.q_five}\', \'${bh_stigma_questionnaire.q_six}\', \'${bh_stigma_questionnaire.q_seven}\', \'${bh_stigma_questionnaire.q_eight}\', \'${bh_stigma_questionnaire.q_nine}\', \'${bh_stigma_questionnaire.q_ten}\')`;
-                connection.query(bh_sql, (error, results) => {
+                let bh_sql = `INSERT INTO \`${DB_NAME}\`.\`bh_stigma_questionnaire\` (\`DODID\`, \`q_one\`, \`q_two\`, \`q_three\`, \`q_four\`, \`q_five\`, \`q_six\`, \`q_seven\`, \`q_eight\`, \`q_nine\`, \`q_ten\`) VALUES (\'${xviii_datasheet.DODID}\', \'${bh_stigma_questionnaire.q_one}\', \'${bh_stigma_questionnaire.q_two}\', \'${bh_stigma_questionnaire.q_three}\', \'${bh_stigma_questionnaire.q_four}\', \'${bh_stigma_questionnaire.q_five}\', \'${bh_stigma_questionnaire.q_six}\', \'${bh_stigma_questionnaire.q_seven}\', \'${bh_stigma_questionnaire.q_eight}\', \'${bh_stigma_questionnaire.q_nine}\', \'${bh_stigma_questionnaire.q_ten}\')`;
+                pool.query(bh_sql, (error, results) => {
                     if (error) console.error(error);
 
                     if (!error) {
@@ -339,7 +340,7 @@ app.get('/admindata', async (request, response) => {
     }
 
     let sql = 'SELECT * FROM ' + table;
-    connection.query(sql, (error, results) => {
+    pool.query(sql, (error, results) => {
         if (error) console.log(error);
         const jsonData = JSON.parse(JSON.stringify(results));
 

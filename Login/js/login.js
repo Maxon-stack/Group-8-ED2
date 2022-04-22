@@ -25,7 +25,7 @@ loginForm.addEventListener('submit', (e) => {
         password: `${password}`
     };
 
-    const loginURL = `http://localhost:3000/login`;
+    const loginURL = `https://in-processing-api.herokuapp.com/login`;
 
     fetch(loginURL, {
         method: 'POST',

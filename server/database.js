@@ -1,12 +1,12 @@
 var mysql = require('mysql');
 require('dotenv').config();
 
-var connection = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    database: process.env.DATABASE_DATABASE,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-});
+// var connection = mysql.createConnection({
+//     host: "localhost",
+//     database: "InProcessingDemo",
+//     user: "root",
+//     password: "CHDC3G7C",
+// });
 
 // var connection = mysql.createConnection({
 //     host: 'localhost',
@@ -15,9 +15,16 @@ var connection = mysql.createConnection({
 //     password: 'password',
 // });
 
-connection.connect((error) => {
-    if (error) throw error;
-    console.log('Connected to database');
+var pool = mysql.createPool({
+    host: 'us-cdbr-east-05.cleardb.net',
+    database: 'heroku_a3258b7e4d7034b',
+    user: 'b59ee423efcdd8',
+    password: '344cbaa8',
 });
 
-module.exports = connection;
+// connection.connect((error) => {
+//     if (error) throw error;
+//     console.log('Connected to database');
+// });
+
+module.exports = pool;

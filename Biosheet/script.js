@@ -61,7 +61,7 @@ function appOnSubmit(event) {
   console.log('---submit starting---')
   console.log(UserInputs)
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'http://localhost:3000/submit');
+  xhr.open('POST', 'https://in-processing-api.herokuapp.com/submit');
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   xhr.send(JSON.stringify(UserInputs));
