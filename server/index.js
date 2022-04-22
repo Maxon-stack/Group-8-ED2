@@ -19,7 +19,7 @@ app.use(bodyParser.json()); // for parsing json objects in request body
  * Port 3000 for development purposes, our sponsor 
  * should let us know what port is available on their network to use.
  */
-const port = 3000;
+const PORT = 3000;
 
 // Sample API endpoint
 app.get('/', (request, response) => {
@@ -384,6 +384,6 @@ app.get('/admindata', async (request, response) => {
     });
 });
 
-app.listen(port, () => {
-    console.log('Listening on port 3000');
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

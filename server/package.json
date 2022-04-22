@@ -4,6 +4,8 @@
   "description": "Group 8's Node.js server for the In-Processing application for the XVIII Airborne Corps",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "devStart": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Group 8",
@@ -17,8 +19,10 @@
     "json-2-csv": "^3.17.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.15",
     "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   },
   "type": "commonjs"
 }
