@@ -16,10 +16,11 @@ require('dotenv').config();
 // });
 
 var pool = mysql.createPool({
-    host: 'us-cdbr-east-05.cleardb.net',
-    database: 'heroku_a3258b7e4d7034b',
-    user: 'b59ee423efcdd8',
-    password: '344cbaa8',
+    host: 'bv2rebwf6zzsv341.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    database: 'ozvnvo0we0wrviab',
+    user: 'q9zus6zu6dp0xtbh',
+    connectionLimit: 8,
+    password: 'ewjeelc9lx9vjt51',
 });
 
 // connection.connect((error) => {
