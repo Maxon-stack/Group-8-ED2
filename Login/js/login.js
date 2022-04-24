@@ -69,5 +69,5 @@ loginForm.addEventListener('submit', (e) => {
 returnToDashboardBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    window.location.replace('../../index.html');
+    window.location.replace('../index.html');
 });
