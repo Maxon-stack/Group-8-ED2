@@ -14,47 +14,17 @@
   <meta property="og:image" content="">
   <meta property="og:url" content="">
   <meta property="og:site_name" content="">
-  <meta property="og:description" content="">
-
-  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="">
-  <meta name="twitter:image" content="">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Imperial - v5.7.0
-  * Template URL: https://bootstrapmade.com/imperial-free-onepage-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body>
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    <div class="hero-container">
-      <div data-aos="fade-in">
-        <div class="hero-logo">
+  <meta property="og:description" content=""def plot_fun_thr(self, features, labels, thre_parms, classes):
+		plt.plot(features[labels[:]==classes[0],0], features[labels[:]==classes[0],1], 'rs', 
+		features[labels[:]==classes[1],0], features[labels[:]==classes[1],1], 'g^')
+		plt.axis([-2,2,-2,2])
+		x1 = np.linspace(-1,2,50)
+		x2 = -(thre_parms[1]*x1+thre_parms[0])/thre_parms[2]
+		plt.plot(x1, x2, '-r')
+		plt.xlabel('x: feature 1')
+		plt.ylabel('y: feature 2')
+		plt.legend(['Class' + str(classes[0]), 'Class' + str(classes[1])])
+		plt.show()div class="hero-logo">
           
         </div>
 
@@ -275,10 +245,6 @@
               <div class="pic"><img src="assets/img/team/team-1.jpg" alt=""></div>
               <h4>Taylor, Michael A CPT</h4>
               <span>Company Commander</span>
-              <div class="social">
-                <a href=""><i class="bi bi-envelope-fill"></i></a>
-                <a href=""><i class="bi bi-microsoft"></i></a>              
-              </div>
             </div>
           </div>
 
@@ -286,11 +252,7 @@
             <div class="member">
               <div class="pic"><img src="assets/img/team/team-2.jpg" alt=""></div>
               <h4>Cranford, Rodney L 1SG</h4>
-              <span>First sergeant</span>
-              <div class="social">
-                <a href=""><i class="bi bi-envelope-fill"></i></a>
-                <a href=""><i class="bi bi-microsoft"></i></a>     
-              </div>
+              <span>First Sergeant</span>
             </div>
           </div>
 
@@ -299,10 +261,6 @@
               <div class="pic"><img src="assets/img/team/team-3.jpg" alt=""></div>
               <h4>Maes, Evan P SGT</h4>
               <span>NCOIC</span>
-              <div class="social">
-                <a href=""><i class="bi bi-envelope-fill"></i></a>
-                <a href=""><i class="bi bi-microsoft"></i></a>     
-              </div>
             </div>
           </div>
 
@@ -311,10 +269,6 @@
               <div class="pic"><img src="assets/img/team/team-4.jpg" alt=""></div>
               <h4>Fangayen, Grail M SGT</h4>
               <span>NCOIC</span>
-              <div class="social">
-                <a href=""><i class="bi bi-envelope-fill"></i></a>
-                <a href=""><i class="bi bi-microsoft"></i></a>     
-              </div>
             </div>
           </div>
 
