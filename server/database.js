@@ -19,7 +19,7 @@ var pool = mysql.createPool({
     host: 'bv2rebwf6zzsv341.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     database: 'ozvnvo0we0wrviab',
     user: 'q9zus6zu6dp0xtbh',
-    connectionLimit: 8,
+    connectionLimit: 1,
     password: 'ewjeelc9lx9vjt51',
 });
 
