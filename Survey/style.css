@@ -25,12 +25,6 @@ input[type=text]:focus, textarea:focus {
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
 }
-
-
-
-
-
-
 #img_holder{
   display: flex;
   justify-content: center;
@@ -132,22 +126,6 @@ input{
 .holder{
   padding: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #img_holder{
   display: flex;

@@ -32,7 +32,6 @@ var UserInputs = {
   state: "",
   zip: "",
   phone_number: "",
-
   emergency_name: "",
   emergency_phone_number: "",
   emergency_relation: "",
@@ -54,7 +53,6 @@ var UserInputs = {
     q_nine: "",
     q_ten: "",
   }
-
 }
 function appOnSubmit(event) {
   //event.preventDefault();
@@ -69,11 +67,9 @@ function appOnSubmit(event) {
     alert(`Loaded: ${xhr.status} ${xhr.response}`);
     window.location.href = "../index.html";
   };
-
   xhr.onerror = function () { // only triggers if the request couldn't be made at all
     alert(`Failed to send user inputs`);
   };
-
 }
 //clearing all inputs
 function exitForm() {
@@ -222,8 +218,6 @@ function handleArrivalDate(event) {
 function handleNextPage() {
   console.log(UserInputs)
 }
-
-
 /*
 The following code is for the form validation and is used to decide which form the user is on and displays the correct form.
 */
