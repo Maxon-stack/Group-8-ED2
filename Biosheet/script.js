@@ -89,7 +89,7 @@ function exitForm() {
       selectElements[i].value = '';
     }
   }
-  window.location.href = 'https://maxon-stack.github.io/Group-8-ED2/';
+  window.location.href = 'https://www.xviii.rf.gd/';
 }
 function handlePlatoon(event) {
   UserInputs.platoon = event.value
