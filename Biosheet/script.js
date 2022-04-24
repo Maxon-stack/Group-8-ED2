@@ -67,6 +67,7 @@ function appOnSubmit(event) {
   xhr.send(JSON.stringify(UserInputs));
   xhr.onload = function () {
     alert(`Loaded: ${xhr.status} ${xhr.response}`);
+    window.location.href = "../index.html";
   };
 
   xhr.onerror = function () { // only triggers if the request couldn't be made at all
