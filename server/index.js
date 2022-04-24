@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const pool = require('./database');
 const serverAdminDatabase = require('./serverAdminDatabase');
+const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = require('./tokens');
 
 const app = express();
 app.use(cors()); // Cross Origin Resource Sharing
@@ -20,7 +21,7 @@ app.use(bodyParser.json()); // for parsing json objects in request body
  * should let us know what port is available on their network to use.
  */
 const PORT = 8080;
-const DB_NAME = 'heroku_a3258b7e4d7034b';
+const DB_NAME = 'ozvnvo0we0wrviab';
 
 // Sample API endpoint
 app.get('/', (request, response) => {
@@ -54,11 +55,12 @@ app.post('/login', async (request, response) => {
         if (admin) {
             try {
                 const result = await bcrypt.compare(request.body.password, admin.password); // check encrypted password
+                console.log(result);
                 if (result) {
                     const user = { name: admin.name, username: admin.username, password: admin.password };
 
                     const accessToken = generateAccessToken(user);
-                    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET); // Generate refresh token
+                    const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET); // Generate refresh token
                     console.log('Refresh token generated');
                     let updateQuery = `UPDATE \`${DB_NAME}\`.\`administrators\` SET \`refreshToken\` = '${refreshToken}' WHERE (\`username\` = \'${admin.username}\');`; // Insert refresh token into admin database
                     pool.query(updateQuery, async (error, results) => {
@@ -102,7 +104,7 @@ app.get("/getGotData", async (request, response) => {
  */
 function generateAccessToken(user) {
     console.log('Access token generated');
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '40s' }); // Generate access token, expires in 15s (15 min for actual implementation)
+    return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '1200000' }); // Generate access token, expires in 15s (15 min for actual implementation)
 }
 
 /**
@@ -118,7 +120,7 @@ function authenticateToken(request, response, next) {
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) { return response.sendStatus(401) };
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             console.log('Unauthorized access token, possibly expired');
             return response.sendStatus(403)
@@ -149,7 +151,7 @@ app.post('/refresh', (request, response) => {
         if (error) console.log(error);
 
         if (results.length != 0) { // If refresh token found in db
-            jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+            jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
                 if (err) { console.log(err); return response.sendStatus(403) };
                 const accessToken = generateAccessToken({ username: user.username, password: user.password });
                 response.status(200).json({ message: 'Success', accessToken: accessToken });
