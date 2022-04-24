@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+const pool = require('./database');
 
 var gotData = {
 	connected: false,
@@ -45,12 +46,12 @@ const getChangeNum = (pool, plt, back) => {
 //     user: 'root',
 //     password: 'password',
 // });
-var pool = mysql.createPool({
-	host: 'us-cdbr-east-05.cleardb.net',
-	database: 'heroku_a3258b7e4d7034b',
-	user: 'b59ee423efcdd8',
-	password: '344cbaa8',
-});
+// var pool = mysql.createPool({
+// 	host: 'us-cdbr-east-05.cleardb.net',
+// 	database: 'heroku_a3258b7e4d7034b',
+// 	user: 'b59ee423efcdd8',
+// 	password: '344cbaa8',
+// });
 
 if (pool) {
 	console.log('Connected!');
