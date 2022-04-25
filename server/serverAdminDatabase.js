@@ -20,61 +20,49 @@ var gotData = {
 		lc4th: [],
 		lcsenior: [],
 	},
-	pltpiData: {
-		pi1st: 0,
-		pi2nd: 0,
-		pi3rd: 0,
-		pi4th: 0,
-		pisenior: 0,
-	},
 };
 
 const d = new Date();
-const getChangeNum = (pool, plt, back) => {
+const getChangeNum = (conn, plt, back)=>{
 	const arr = [];
 	for (let i = 1; i < back + 1; i++) {
-		pool.query("SELECT COUNT(*) FROM " + plt + " WHERE arrival_date < " + + (d.getTime() - (86400 * (back + 1))).toString() + " AND arrival_date > " + (d.getTime() - (86400 * back)).toString(), function (err, res, fields) {
+		conn.query("SELECT COUNT(*) FROM " + plt + " WHERE arrival_date < " + + (d.getTime() - (86400 * (back + 1))).toString() + " AND arrival_date > " + (d.getTime() - (86400 * back)).toString(), function (err, res, fields){
 			if (err) throw err;
 			arr.push(res);
 		})
 	}
 }
 
-// var pool = mysql.createConnection({
+// var conn = mysql.createConnection({
 //     host: 'localhost',
 //     database: 'xviii_database',
 //     user: 'root',
 //     password: 'password',
 // });
-// var pool = mysql.createPool({
-// 	host: 'us-cdbr-east-05.cleardb.net',
-// 	database: 'heroku_a3258b7e4d7034b',
-// 	user: 'b59ee423efcdd8',
-// 	password: '344cbaa8',
-// });
-
-if (pool) {
+// if (conn)
+pool.connect(function(err){
+	if (err) throw err;
 	console.log('Connected!');
 	gotData.connected = true;
-
+	
 	//	query for soilder sizes
-	pool.query("SELECT COUNT(*) FROM platoon_one", function (err, res, fields) {
+	pool.query("SELECT COUNT(*) FROM platoon_one", function (err, res, fields){
 		if (err) throw err;
 		gotData.numSoldiers.plt1size = res[0]['COUNT(*)'];
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_two", function (err, res, fields) {
+	pool.query("SELECT COUNT(*) FROM platoon_two", function (err, res, fields){
 		if (err) throw err;
 		gotData.numSoldiers.plt2size = res[0]['COUNT(*)'];;
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_three", function (err, res, fields) {
+	pool.query("SELECT COUNT(*) FROM platoon_three", function (err, res, fields){
 		if (err) throw err;
 		gotData.numSoldiers.plt3size = res[0]['COUNT(*)'];;
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_four", function (err, res, fields) {
+	pool.query("SELECT COUNT(*) FROM platoon_four", function (err, res, fields){
 		if (err) throw err;
 		gotData.numSoldiers.plt4size = res[0]['COUNT(*)'];;
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_senior", function (err, res, fields) {
+	pool.query("SELECT COUNT(*) FROM platoon_senior", function (err, res, fields){
 		if (err) throw err;
 		gotData.numSoldiers.pltseniorsize = res[0]['COUNT(*)'];;
 	})
@@ -133,8 +121,8 @@ if (pool) {
 	gotData.linechartData.lc3rd = getChangeNum(pool, "platoon_three", 7);
 	gotData.linechartData.lc4th = getChangeNum(pool, "platoon_four", 7);
 	gotData.linechartData.lcsenior = getChangeNum(pool, "platoon_senior", 7);
-}
+});
 
-module.exports = function getGotData() {
-	return gotData;
+module.exports = function getGotData(){
+    return gotData;
 }
