@@ -23,10 +23,10 @@ var gotData = {
 };
 
 const d = new Date();
-const getChangeNum = (conn, plt, back)=>{
+const getChangeNum = (conn, plt, back) => {
 	const arr = [];
 	for (let i = 1; i < back + 1; i++) {
-		conn.query("SELECT COUNT(*) FROM " + plt + " WHERE arrival_date < " + + (d.getTime() - (86400 * (back + 1))).toString() + " AND arrival_date > " + (d.getTime() - (86400 * back)).toString(), function (err, res, fields){
+		conn.query("SELECT COUNT(*) FROM " + plt + " WHERE arrival_date < " + + (d.getTime() - (86400 * (back + 1))).toString() + " AND arrival_date > " + (d.getTime() - (86400 * back)).toString(), function (err, res, fields) {
 			if (err) throw err;
 			arr.push(res);
 		})
@@ -40,29 +40,30 @@ const getChangeNum = (conn, plt, back)=>{
 //     password: 'password',
 // });
 // if (conn)
-pool.connect(function(err){
-	if (err) throw err;
+//pool.connect(function(err){
+//if (err) throw err;
+if (pool) {
 	console.log('Connected!');
 	gotData.connected = true;
-	
+
 	//	query for soilder sizes
-	pool.query("SELECT COUNT(*) FROM platoon_one", function (err, res, fields){
+	pool.query("SELECT COUNT(*) FROM platoon_one", function (err, res, fields) {
 		if (err) throw err;
 		gotData.numSoldiers.plt1size = res[0]['COUNT(*)'];
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_two", function (err, res, fields){
+	pool.query("SELECT COUNT(*) FROM platoon_two", function (err, res, fields) {
 		if (err) throw err;
 		gotData.numSoldiers.plt2size = res[0]['COUNT(*)'];;
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_three", function (err, res, fields){
+	pool.query("SELECT COUNT(*) FROM platoon_three", function (err, res, fields) {
 		if (err) throw err;
 		gotData.numSoldiers.plt3size = res[0]['COUNT(*)'];;
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_four", function (err, res, fields){
+	pool.query("SELECT COUNT(*) FROM platoon_four", function (err, res, fields) {
 		if (err) throw err;
 		gotData.numSoldiers.plt4size = res[0]['COUNT(*)'];;
 	})
-	pool.query("SELECT COUNT(*) FROM platoon_senior", function (err, res, fields){
+	pool.query("SELECT COUNT(*) FROM platoon_senior", function (err, res, fields) {
 		if (err) throw err;
 		gotData.numSoldiers.pltseniorsize = res[0]['COUNT(*)'];;
 	})
@@ -121,8 +122,8 @@ pool.connect(function(err){
 	gotData.linechartData.lc3rd = getChangeNum(pool, "platoon_three", 7);
 	gotData.linechartData.lc4th = getChangeNum(pool, "platoon_four", 7);
 	gotData.linechartData.lcsenior = getChangeNum(pool, "platoon_senior", 7);
-});
+}
 
-module.exports = function getGotData(){
-    return gotData;
+module.exports = function getGotData() {
+	return gotData;
 }
