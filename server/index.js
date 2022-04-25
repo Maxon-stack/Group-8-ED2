@@ -321,6 +321,12 @@ var buttonToFile = [
     ['shippingRoster.xlsx', 'shipping_roster'],
     ['newArrivals.xlsx', 'new_arrivals'],
 ];
+
+function intToChar(int) {
+    const code = 'a'.charCodeAt(0);
+    return String.fromCharCode(code + int);
+}
+
 /**
  * Export data endpoint.
  * 
@@ -328,63 +334,69 @@ var buttonToFile = [
  * into a CSV file. 
  */
 app.get('/admindata', async (request, response) => {
-    let table = "";
-    for (let [fn, tl] of buttonToFile) {
-        if (fn == request.query.fileName) {
-            table = tl;
-            continue;
-        }
-    }
-    console.log("find table", table);
-    if (table == "") {
-        response.status(200).json("");
-        return;
-    }
+	let table = "";
+	for (let [fn, tl] of buttonToFile) {
+		if (fn == request.query.fileName){
+			table = tl;
+			continue;
+		}
+	}
+	console.log("find table", table);
+	if (table == ""){
+		response.status(200).json("");
+		return;
+	}
 
-    let sql = 'SELECT * FROM ' + table;
-    pool.query(sql, (error, results) => {
-        if (error) console.log(error);
-        const jsonData = JSON.parse(JSON.stringify(results));
+	let sql = 'SELECT * FROM ' + table;
+	pool.query(sql, (error, results) => {
+		if (error) console.log(error);
+		const jsonData = JSON.parse(JSON.stringify(results));
 
-        converter.json2csv(jsonData, (err, csv) => {
-            if (err) { console.error(err) };
-            //fs.writeFileSync(request.query.fileName, csv);
-            //fs.appendFileSync(request.query.fileName, csv);
+		converter.json2csv(jsonData, (err, csv) => {
+			if (err) { console.error(err) };
+			//fs.writeFileSync(request.query.fileName, csv);
+			//fs.appendFileSync(request.query.fileName, csv);
 
-            const spreadsheet = xlsx.readFile(request.query.fileName);
+
+            //const spreadsheet = xlsx.readFile(request.query.fileName);
+            const spreadsheet = xlsx.readFile("template.xlsx");
+            //console.log(spreadsheet);
             const sheets = spreadsheet.SheetNames;
-            const sheet = spreadsheet.Sheets[sheets[0]];
+            const sheetName = sheets[0];
+            const sheet = spreadsheet.Sheets[sheetName];
+            const JsonOrder = [ "PLT", "gaining_unit", "DODID", "SSN", "first_name", "last_name", "rank", "MOS", "ASI", "date_of_birth", "place_of_birth", "gender", "home_of_record", "ETS", "security_clearance", "BASD", "DOR", "marital_status", "arrival_date", "blood_type", "glasses", "inserts_on_hand", "color_blind", "vaccine_status", "phone_number", "email", "army_email", "street_address", "address_line_2", "city", "state", "zip_code", "emergency_name", "emergency_relation", "emergency_phone_number", "emergency_email", "emergency_street_address", "emergency_address_line_2", "emergency_city", "emergency_state", "emergency_zip_code"];
 
-            /*console.log(csv);
-            //sheet['B2'] = "UGH";
-            console.log("AHHH", csv[0], csv[2], jsonData);
-            console.log("BEFORE", sheet['A1']);
-            const cur = sheet['B2'];
-            const work = cur !== undefined ? cur : {};
-            work.t = "UGH";
-            sheet['B2'] = work;
-            console.log("work", work);
-            sheet['A1'].t = 'AHH'
-            spreadsheet.Sheets[sheets[0]] = sheet;*/
+            // for (let i = 0; i < JsonOrder.length; i++){
+            //     sheet['A'+i+1] = [v = JsonOrder[i]];
+            // }
 
-            /*fs.unlink(request.query.fileName, (error) => {})
-            //fs.unlinkSync(request.query.fileName);
-            fs.copyFile('../Login/Admin/assets/exportTemplates/'+request.query.fileName, './'+request.query.fileName, (err) => {
-                if (err) throw err;
-                console.log('File was copied to destination');
-            });*/
+            for (let i = 0; i < jsonData.length; i++) {
+                const PersonJson = jsonData[i];
+                
+                for (let num = 0; num < JsonOrder.length; num++) {
+                    //sheet['A'+ i + 1] = ""
 
-            const cur = sheet['A1'];
-            console.log(cur);
+                    const Letter = intToChar(num + 1)
+                    const field = JsonOrder[num];
+                    let val = PersonJson[field]
 
-            sheet['A1'].v = 'TEST';
+                    const index = `${Letter.toUpperCase()}${i + 2}`;
+                    if (sheet[index] === undefined){
+                        sheet[index] = [];
+                    }
+                    
+                    sheet[index].v = val
+                    //console.log("writing " + index + " as " + val);
+                }
+            }
+            
+            spreadsheet.Sheets[sheetName] = sheet;
+			xlsx.writeFileXLSX(spreadsheet, request.query.fileName, {raw: true});
+		});
 
-            xlsx.writeFileXLSX(spreadsheet, request.query.fileName, { raw: true });
-        });
-
-        // Respond with CSV fileName
-        response.status(200).json(request.query.fileName);
-    });
+		// Respond with CSV fileName
+		response.status(200).json(request.query.fileName);
+	});
 });
 
 app.listen(process.env.PORT || PORT, () => {
