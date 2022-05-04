@@ -9,7 +9,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const accessToken = sessionStorage.getItem('accessToken');
 
-  fetch('https://in-processing-api.herokuapp.com/authorize', {
+  fetch('http://localhost:3000/authorize', {
     method: 'GET',
     headers: new Headers({
       'Authorization': 'Bearer ' + accessToken,
@@ -28,7 +28,7 @@ signoutBtn.addEventListener('click', (e) => {
   const refreshToken = sessionStorage.getItem('refreshToken');
   const data = { token: refreshToken };
 
-  fetch('https://in-processing-api.herokuapp.com/logout', {
+  fetch('http://localhost:3000/logout', {
     method: 'DELETE',
     headers: new Headers({
       'Content-Type': 'application/json',

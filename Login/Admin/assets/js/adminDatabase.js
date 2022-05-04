@@ -24,7 +24,7 @@ var gotData = {
 
 
 
-const fetchUrl = 'https://in-processing-api.herokuapp.com/getGotData';
+const fetchUrl = 'http://localhost:3000/getGotData';
 const gotDataPromise = fetch(fetchUrl)
 	.then(response => response.json())
 	.then(data => { gotData = data; console.log(data)})
@@ -49,7 +49,7 @@ for (let [buttonName, fileName] of buttonToFile) {
 	if (button) {
 		button.onclick = function(){
 			
-			fetch('https://in-processing-api.herokuapp.com/admindata?fileName=' + fileName)
+			fetch('http://localhost:3000/admindata?fileName=' + fileName)
 				.then(response => response.json())
 				.then(data => {
 					var hiddenElement = document.createElement('a');

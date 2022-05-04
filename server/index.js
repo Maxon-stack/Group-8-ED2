@@ -20,7 +20,7 @@ app.use(bodyParser.json()); // for parsing json objects in request body
  * Port 3000 for development purposes, our sponsor 
  * should let us know what port is available on their network to use.
  */
-const PORT = 8080;
+const PORT = 3000;
 const DB_NAME = 'ozvnvo0we0wrviab';
 
 // Sample API endpoint
